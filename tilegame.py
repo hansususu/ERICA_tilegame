@@ -16,4 +16,3 @@ def make_tile():
     deck.append(ap)
     random.shuffle(deck)
     return deck
-1
