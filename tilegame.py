@@ -32,3 +32,13 @@ def show_tile(player):
         print(str(tile['color']) + str(tile['number']), end = ' ')
     print()
 
+def arrange_tile(player):
+    answer = input("Do you want sort? (789/777/NO")
+    while not (answer == '789' or answer == '777' or answer == 'NO') :
+        answer == input("Do you want sort? (789/777/NO")
+    if answer == '777':
+        player.sort(key=lambda x: x['number'])
+    elif answer == '789':
+        player.sort(key=lambda x: (x['color'], x['number']))
+
+
