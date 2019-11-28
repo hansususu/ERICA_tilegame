@@ -32,6 +32,7 @@ def show_tile(player):
         print(str(tile['color']) + str(tile['number']), end = ' ')
     print()
 
+<<<<<<< HEAD
 def register(player,tile) :
 
     if more("Do you want to register?(y/n) ") == True:
@@ -77,3 +78,15 @@ def register(player,tile) :
         else:
 
             print("타일이 없어요,,,")
+=======
+def arrange_tile(player):
+    answer = input("Do you want sort? (789/777/NO")
+    while not (answer == '789' or answer == '777' or answer == 'NO') :
+        answer == input("Do you want sort? (789/777/NO")
+    if answer == '777':
+        player.sort(key=lambda x: x['number'])
+    elif answer == '789':
+        player.sort(key=lambda x: (x['color'], x['number']))
+
+
+>>>>>>> 0ecbbc919c1dcbb81959c2522df9d80d250c334e
