@@ -32,3 +32,48 @@ def show_tile(player):
         print(str(tile['color']) + str(tile['number']), end = ' ')
     print()
 
+def register(player,tile) :
+
+    if more("Do you want to register?(y/n) ") == True:
+
+        answer1 = input("몇개의 묶음을 등록하시겠습니까?")
+
+        answer1 = int(answer1)
+
+        for i in range(answer1):
+
+            answer2 = input("몇개의 타일을 입력하시겠습니까?")
+
+            answer2 = int(answer2)
+
+            arr = []
+
+            print("타일을 입력해주세요!")
+
+            for j in range(answer2):
+
+                a,b= input().split()
+
+                b = int(b)
+
+                c = {'color': a, 'number': b}
+
+                arr.append(c)
+
+    else :
+
+        print("You get 1 tile.")
+
+        if tile != []:
+
+            a = random.choice(tile)
+
+            player.append(a)
+
+            tile.remove(a)
+
+            show_tile(player)
+
+        else:
+
+            print("타일이 없어요,,,")
