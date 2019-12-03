@@ -29,7 +29,7 @@ def dist_tile(tile):
 def show_tile(player):
     print("my tile is")
     for tile in player:
-        print(str(tile['color']) + str(tile['number']), end = ' ')
+        print(str(tile['color']) + ' '+ str(tile['number']), end = ' ')
     print()
 
 def more(message):
@@ -45,16 +45,55 @@ def register(player,tile) :
     if more("Do you want to register?(y/n) ") == True:
         answer1 = input("몇개의 묶음을 등록하시겠습니까?")
         answer1 = int(answer1)
+        sum = 0
+        board = [[0 for i in range(13)]for j in range(13)]
+        judge = False
         for i in range(answer1):
             answer2 = input("몇개의 타일을 입력하시겠습니까?")
             answer2 = int(answer2)
-            arr = []
             print("타일을 입력해주세요!")
-            for j in range(anSswer2):
+            for j in range(answer2):
                 a,b= input().split()
                 b = int(b)
                 c = {'color': a, 'number': b}
-                arr.append(c)
+                if (c in player):
+                    board[i][j] = c
+                    player.remove(c)
+                    judge = True
+                else:
+                    print("This tile is not yours.")
+                    print("You get 1 tile.")
+                    if tile != []:
+                        a = random.choice(tile)
+                        player.append(a)
+                        tile.remove(a)
+                        show_tile(player)
+                    else:
+                        print("There are no tiles")
+                    judge = False
+                    break
+        row = len(board)
+        col = len(board[0])
+        a = []
+        for i in range(row):
+            for j in range(col):
+                if (board[i][j] != 0):
+                    a.append(board[i][j])
+        for i in range(len(a)):
+            sum += a[i]['number']
+        if (judge == True):
+            if (sum <= 30):
+                print("Sum is not over 30")
+                print("YOu get 1 tile.")
+                if tile != []:
+                    a = random.choice(tile)
+                    player.append(a)
+                    tile.remove(a)
+                    show_tile(player)
+                else:
+                    print("There are no tile.")
+            else:
+                print("You success to register.")
     else :
         print("You get 1 tile.")
         if tile != []:
