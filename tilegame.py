@@ -32,53 +32,39 @@ def show_tile(player):
         print(str(tile['color']) + str(tile['number']), end = ' ')
     print()
 
-<<<<<<< HEAD
+def more(message):
+    answer = input(message)
+    while not (answer == 'y' or answer == 'n'):
+        answer = input(message)
+    if answer =='y':
+        return True
+    else:
+        return False
+
 def register(player,tile) :
-
     if more("Do you want to register?(y/n) ") == True:
-
         answer1 = input("몇개의 묶음을 등록하시겠습니까?")
-
         answer1 = int(answer1)
-
         for i in range(answer1):
-
             answer2 = input("몇개의 타일을 입력하시겠습니까?")
-
             answer2 = int(answer2)
-
             arr = []
-
             print("타일을 입력해주세요!")
-
-            for j in range(answer2):
-
+            for j in range(anSswer2):
                 a,b= input().split()
-
                 b = int(b)
-
                 c = {'color': a, 'number': b}
-
                 arr.append(c)
-
     else :
-
         print("You get 1 tile.")
-
         if tile != []:
-
             a = random.choice(tile)
-
             player.append(a)
-
             tile.remove(a)
-
             show_tile(player)
-
         else:
+            print("no tile!")
 
-            print("타일이 없어요,,,")
-=======
 def arrange_tile(player):
     answer = input("Do you want sort? (789/777/NO")
     while not (answer == '789' or answer == '777' or answer == 'NO') :
@@ -89,4 +75,3 @@ def arrange_tile(player):
         player.sort(key=lambda x: (x['color'], x['number']))
 
 
->>>>>>> 0ecbbc919c1dcbb81959c2522df9d80d250c334e
