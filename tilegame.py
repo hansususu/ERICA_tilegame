@@ -47,6 +47,8 @@ def register(player,tile) :
         answer1 = int(answer1)
         sum = 0
         board = [[0 for i in range(13)]for j in range(13)]
+        judge_board1 = [[0 for i in range(13)]for j in range(13)]
+        judge_board2 = [[0 for i in range(13)]for j in range(13)]
         judge = False
         for i in range(answer1):
             answer2 = input("몇개의 타일을 입력하시겠습니까?")
@@ -58,6 +60,8 @@ def register(player,tile) :
                 c = {'color': a, 'number': b}
                 if (c in player):
                     board[i][j] = c
+                    judge_board1[i][j] = c
+                    judge_board2[i][j] = c
                     player.remove(c)
                     judge = True
                 else:
@@ -73,7 +77,7 @@ def register(player,tile) :
                     judge = False
                     break
         row = len(board)
-        col = len(board[0])
+        col = len(board[0])       
         a = []
         for i in range(row):
             for j in range(col):
@@ -105,12 +109,21 @@ def register(player,tile) :
             print("no tile!")
 
 def arrange_tile(player):
-    answer = input("Do you want sort? (789/777/NO")
+    answer = input("Do you want sort? (789/777/NO)")
     while not (answer == '789' or answer == '777' or answer == 'NO') :
-        answer == input("Do you want sort? (789/777/NO")
+        answer == input("Do you want sort? (789/777/NO)")
     if answer == '777':
         player.sort(key=lambda x: x['number'])
     elif answer == '789':
         player.sort(key=lambda x: (x['color'], x['number']))
 
+def tilegame():
+    tile = make_tile()
+    dist_tile(tile)
+    show_tile(player)
+    arrange_tile(player)
+    show_tile(player)
+    register(player,tile)
+
+tilegame()
 
