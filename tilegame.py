@@ -100,14 +100,19 @@ def realcard():
         answer2 = input("How many tiles do you want to enter?")
         answer2 = int(answer2)
         print("Please enter tiles")
-        card = []
-        card = input()
-        if (card in player):
-            pass
-        else:
-            print("This tile is not yours")
-            print("You get 1 tile")
-            break
+        for i in range(answer2):
+            a, b = input().split()
+            b = int(b)
+            c = {'color': a, 'number': b}
+            if (c in player):
+                board[i][j] = c
+                player.remove(c)
+                global judge
+                judge = True
+            else:
+                print("This tile is not yours")
+                print("You get 1 tile")
+                break
 
 def emptytile():
     if tile != []:
