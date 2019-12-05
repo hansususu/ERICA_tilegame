@@ -1,4 +1,4 @@
-import random
+import random 
 player = []
 computer = []
 
@@ -51,6 +51,7 @@ def register(player,tile) :
         global board
         board = [[0 for i in range(13)]for j in range(13)]
         realcard()
+        show_tile(player)
         row = len(board)
         col = len(board[0])       
         a = []
@@ -77,7 +78,7 @@ def realcard():
         answer2 = input("How many tiles do you want to enter?")
         answer2 = int(answer2)
         try:
-            print("Please enter tiles")
+            print("Please enter tiles!")
             for j in range(answer2):
                 a, b = input().split()
                 b = int(b)
@@ -97,10 +98,10 @@ def realcard():
             realcard()
 
 def emptytile():
-    if tile != []:
-        a = random.choice(tile)
+    if dist_tile() != []:
+        a = random.choice(dist_tile())
         player.append(a)
-        tile.remove(a)
+        dist_tile().remove(a)
         show_tile(player)
     else:
         print("There are no tile.")
