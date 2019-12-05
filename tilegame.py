@@ -76,20 +76,25 @@ def realcard():
         global answer2
         answer2 = input("How many tiles do you want to enter?")
         answer2 = int(answer2)
-        print("Please enter tiles")
-        for j in range(answer2):
-            a, b = input().split()
-            b = int(b)
-            c = {'color': a, 'number': b}
-            if (c in player):
-                board[i][j] = c
-                player.remove(c)
-                global judge
-                judge = True
-            else:
-                print("This tile is not yours")
-                print("Please re-enter from the beginning.")
-                realcard()
+        try:
+            print("Please enter tiles")
+            for j in range(answer2):
+                a, b = input().split()
+                b = int(b)
+                c = {'color': a, 'number': b}
+                if (c in player):
+                    board[i][j] = c
+                    player.remove(c)
+                    global judge
+                    judge = True
+                else:
+                    print("This tile is not yours")
+                    print("Please re-enter from the beginning.")
+                    realcard()
+        except:
+            print("Tile input is not formatted.")
+            print("Please re-enter from the beginning.")
+            realcard()
 
 def emptytile():
     if tile != []:
