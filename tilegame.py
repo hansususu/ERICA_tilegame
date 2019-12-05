@@ -32,7 +32,14 @@ def show_tile(player):
         print(str(tile['color']) + ' '+ str(tile['number']), end = ' ')
     print()
 
-def more(message):
+def show_tile(board):
+    print("Register tile is")
+    for tile in board:
+        print(str(tile['color']) + ' ' + str(tile['number']), end = ' ')
+    print()
+
+
+def  more(message):
     answer = input(message)
     while not (answer == 'y' or answer == 'n'):
         answer = input(message)
