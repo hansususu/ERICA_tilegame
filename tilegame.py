@@ -163,11 +163,18 @@ def arrange_tile(player):
     elif answer == '789':
         player.sort(key=lambda x: (x['color'], x['number']))
 
+def arrange_tileagain(player):
+    if more("Do you want sort again?(y/n) ") == True:
+        arrange_tile(player)
+
+
 def tilegame():
     tile = make_tile()
     dist_tile(tile)
     show_tile(player)
     arrange_tile(player)
+    show_tile(player)
+    arrange_tileagain(player)
     show_tile(player)
     register(player,tile)
 
