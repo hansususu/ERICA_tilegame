@@ -70,8 +70,6 @@ def register(player,tile) :
                     player.remove(c)
                     judge = True
                 else:
-                    print("This tile is not yours.")
-                    print("You get 1 tile.")
                     if tile != []:
                         a = random.choice(tile)
                         player.append(a)
@@ -123,6 +121,7 @@ def realcard():
         pass
     else:
         print("This tile is not yours")
+        print("You get 1 tile")
 
 def arrange_tile(player):
     answer = input("Do you want sort? (789/777/NO)")
