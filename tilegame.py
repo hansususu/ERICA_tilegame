@@ -87,24 +87,12 @@ def register(player,tile) :
             if (sum <= 30):
                 print("Sum is not over 30")
                 print("You get 1 tile.")
-                if tile != []:
-                    a = random.choice(tile)
-                    player.append(a)
-                    tile.remove(a)
-                    show_tile(player)
-                else:
-                    print("There are no tile.")
+                emptytile()
             else:
                 print("You success to register.")
     else :
         print("You get 1 tile.")
-        if tile != []:
-            a = random.choice(tile)
-            player.append(a)
-            tile.remove(a)
-            show_tile(player)
-        else:
-            print("no tile!")
+        emptytile()
 
 def realcard():
     answer2 = input("How many tiles do you want to enter?")
@@ -117,6 +105,15 @@ def realcard():
     else:
         print("This tile is not yours")
         print("You get 1 tile")
+
+def emptytile():
+    if tile != []:
+        a = random.choice(tile)
+        player.append(a)
+        tile.remove(a)
+        show_tile(player)
+    else:
+        print("There are no tile.")
 
 def arrange_tile(player):
     answer = input("Do you want sort? (789/777/NO)")
