@@ -124,6 +124,27 @@ def realcard():
             print("Please re-enter from the beginning.")
             realcard()
 
+def enter_tile(i):
+    print("Please enter tiles!")
+    for j in range(answer2):
+        try:
+            a, b = input().split()
+            b = int(b)
+            c = {'color':a, 'number':b}
+            if c in player:
+                board[i][j] = c
+                player.remove(c)
+                gloabl judge
+                judge = True
+            else:
+                print("This tile is not yours")
+                print("Please re-enter the tile.")
+                enter_tile(i)
+        except:
+            print("Tile input is no formatted.")
+            print("Please re-enter the tile.")
+            enter_tile(i)
+
 def emptytile():
     if tile != []:
         a = random.choice(tile)
