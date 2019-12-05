@@ -115,6 +115,18 @@ def register(player,tile) :
         else:
             print("no tile!")
 
+def realcard():
+    for i in range(answer1):
+        answer2 = input("How many tiles do you want to enter?")
+        answer2 = int(answer2)
+        print("Please enter tiles")
+        card = []
+        card = input()
+        if (card in player):
+            pass
+        else:
+            print("This tile is not yours")
+
 def arrange_tile(player):
     answer = input("Do you want sort? (789/777/NO)")
     while not (answer == '789' or answer == '777' or answer == 'NO') :
