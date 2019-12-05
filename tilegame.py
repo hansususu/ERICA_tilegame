@@ -134,7 +134,7 @@ def enter_tile(i):
             if c in player:
                 board[i][j] = c
                 player.remove(c)
-                gloabl judge
+                global judge
                 judge = True
             else:
                 print("This tile is not yours")
