@@ -47,7 +47,6 @@ def register(player,tile) :
         global answer1
         answer1 = input("몇개의 묶음을 등록하시겠습니까?")
         answer1 = int(answer1)
-        global sum
         sum = 0
         global board
         board = [[0 for i in range(13)]for j in range(13)]
@@ -61,9 +60,9 @@ def register(player,tile) :
             original = []
             judge = []
             for j in range(col):
-                if (board[i][j] != 0):
+                if board[i][j] != 0:
                     a.append(board[i][j])
-            if (board[i] != [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0]):
+            if board[i] != [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0]:
                 jud_row += 1
         global jud
         for i in range(jud_row):
@@ -78,12 +77,15 @@ def register(player,tile) :
                 jud = 1
             else:
                 jud = 0
-        print(jud)
         for i in range(len(a)):
             sum += a[i]['number']
-        if (judge == True):
-            if (sum <= 30):
+        if judge == True:
+            if sum <= 30:
                 print("Sum is not over 30")
+                print("You get 1 tile.")
+                emptytile()
+            elif jud == 1:
+                print("You entered an unaligned tiles.")
                 print("You get 1 tile.")
                 emptytile()
             else:
@@ -103,7 +105,7 @@ def realcard():
                 a, b = input().split()
                 b = int(b)
                 c = {'color': a, 'number': b}
-                if (c in player):
+                if c in player:
                     board[i][j] = c
                     player.remove(c)
                     global judge
@@ -117,13 +119,6 @@ def realcard():
             print("Please re-enter from the beginning.")
             realcard()
 
-def type_tile(player):
-    if (c in player):
-        board[i][j] = c
-        player.remove(c)
-        global judge
-        judge = True
- 
 def emptytile():
     if tile != []:
         a = random.choice(tile)
@@ -135,8 +130,8 @@ def emptytile():
 
 def arrange_tile(player):
     answer = input("Do you want sort? (789/777/NO)")
-    while not (answer == '789' or answer == '777' or answer == 'NO') :
-        answer == input("Do you want sort? (789/777/NO)")
+    while not (answer == '789' or answer == '777' or answer == 'NO'):
+        answer = input("Do you want sort? (789/777/NO)")
     if answer == '777':
         player.sort(key=lambda x: x['number'])
     elif answer == '789':
