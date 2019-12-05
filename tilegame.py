@@ -56,20 +56,19 @@ def register(player,tile) :
         global sum
         sum = 0
         board = [[0 for i in range(13)]for j in range(13)]
-        for i in range(answer1):
-            realcard()
-            for j in range(answer2):
-                a,b= input().split()
-                b = int(b)
-                c = {'color': a, 'number': b}
-                if (c in player):
-                    board[i][j] = c
-                    player.remove(c)
-                    judge = True
-                else:
-                    emptytile()
-                    judge = False
-                    break
+        realcard()
+        for j in range(answer2):
+            a,b= input().split()
+            b = int(b)
+            c = {'color': a, 'number': b}
+            if (c in player):
+                board[i][j] = c
+                player.remove(c)
+                judge = True
+            else:
+                emptytile()
+                judge = False
+                break
         row = len(board)
         col = len(board[0])       
         a = []
@@ -91,23 +90,24 @@ def register(player,tile) :
         emptytile()
 
 def realcard():
-    global answer2
-    answer2 = input("How many tiles do you want to enter?")
-    answer2 = int(answer2)
-    print("Please enter tiles")
-    for i in range(answer2):
-        a, b = input().split()
-        b = int(b)
-        c = {'color': a, 'number': b}
-        if (c in player):
-            board[i][j] = c
-            player.remove(c)
-            global judge
-            judge = True
-        else:
-            print("This tile is not yours")
-            print("You get 1 tile")
-            break
+    for i in range(answer1):
+        global answer2
+        answer2 = input("How many tiles do you want to enter?")
+        answer2 = int(answer2)
+        print("Please enter tiles")
+        for j in range(answer2):
+            a, b = input().split()
+            b = int(b)
+            c = {'color': a, 'number': b}
+            if (c in player):
+                board[i][j] = c
+                player.remove(c)
+                global judge
+                judge = True
+            else:
+                print("This tile is not yours")
+                print("You get 1 tile")
+                realcard()
 
 def emptytile():
     if tile != []:
