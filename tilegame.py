@@ -65,13 +65,7 @@ def register(player,tile) :
                 player.remove(c)
                 judge = True
             else:
-                if tile != []:
-                    a = random.choice(tile)
-                    player.append(a)
-                    tile.remove(a)
-                    show_tile(player)
-                else:
-                    print("There are no tiles")
+                emptytile()
                 judge = False
                 break
         row = len(board)
