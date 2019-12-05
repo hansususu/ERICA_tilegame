@@ -53,6 +53,7 @@ def register(player,tile) :
         global answer
         answer1 = input("몇개의 묶음을 등록하시겠습니까?")
         answer1 = int(answer1)
+        global sum
         sum = 0
         board = [[0 for i in range(13)]for j in range(13)]
         realcard()
