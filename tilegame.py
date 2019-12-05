@@ -5,6 +5,7 @@ computer = []
 def make_tile():
     color = {"red","orange", "blue", "black"}
     number = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}
+    global tile
     tile = []
     for i in color:
         for j in number:
@@ -98,10 +99,10 @@ def realcard():
             realcard()
 
 def emptytile():
-    if dist_tile() != []:
-        a = random.choice(dist_tile())
+    if tile != []:
+        a = random.choice(tile())
         player.append(a)
-        dist_tile().remove(a)
+        tile().remove(a)
         show_tile(player)
     else:
         print("There are no tile.")
