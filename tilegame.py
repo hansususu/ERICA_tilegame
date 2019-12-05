@@ -57,18 +57,8 @@ def register(player,tile) :
         sum = 0
         board = [[0 for i in range(13)]for j in range(13)]
         realcard()
-        for j in range(answer2):
-            a,b= input().split()
-            b = int(b)
-            c = {'color': a, 'number': b}
-            if (c in player):
-                board[i][j] = c
-                player.remove(c)
-                judge = True
-            else:
-                emptytile()
-                judge = False
-                break
+        show_tile(board)
+
         row = len(board)
         col = len(board[0])       
         a = []
