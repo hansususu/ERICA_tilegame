@@ -58,9 +58,7 @@ def register(player,tile) :
         judge_board2 = [[0 for i in range(13)]for j in range(13)]
         judge = False
         for i in range(answer1):
-            answer2 = input("몇개의 타일을 입력하시겠습니까?")
-            answer2 = int(answer2)
-            print("타일을 입력해주세요!")
+            realcard()
             for j in range(answer2):
                 a,b= input().split()
                 b = int(b)
@@ -116,16 +114,15 @@ def register(player,tile) :
             print("no tile!")
 
 def realcard():
-    for i in range(answer1):
-        answer2 = input("How many tiles do you want to enter?")
-        answer2 = int(answer2)
-        print("Please enter tiles")
-        card = []
-        card = input()
-        if (card in player):
-            pass
-        else:
-            print("This tile is not yours")
+    answer2 = input("How many tiles do you want to enter?")
+    answer2 = int(answer2)
+    print("Please enter tiles")
+    card = []
+    card = input()
+    if (card in player):
+        pass
+    else:
+        print("This tile is not yours")
 
 def arrange_tile(player):
     answer = input("Do you want sort? (789/777/NO)")
