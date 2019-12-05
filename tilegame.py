@@ -32,13 +32,6 @@ def show_tile(player):
         print(str(tile['color']) + ' '+ str(tile['number']), end = ' ')
     print()
 
-def show_tile(board):
-    print("Register tile is")
-    for tile in board:
-        print(str(tile['color']) + ' ' + str(tile['number']), end = ' ')
-    print()
-
-
 def  more(message):
     answer = input(message)
     while not (answer == 'y' or answer == 'n'):
@@ -55,10 +48,9 @@ def register(player,tile) :
         answer1 = int(answer1)
         global sum
         sum = 0
+        global board
         board = [[0 for i in range(13)]for j in range(13)]
         realcard()
-        show_tile(board)
-
         row = len(board)
         col = len(board[0])       
         a = []
@@ -96,7 +88,7 @@ def realcard():
                 judge = True
             else:
                 print("This tile is not yours")
-                print("You get 1 tile")
+                print("Please re-enter from the beginning.")
                 realcard()
 
 def emptytile():
