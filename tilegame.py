@@ -33,7 +33,7 @@ def show_tile(player):
         print(str(tile['color']) + ' '+ str(tile['number']), end = ' ')
     print()
 
-def  more(message):
+def more(message):
     answer = input(message)
     while not (answer == 'y' or answer == 'n'):
         answer = input(message)
@@ -53,6 +53,7 @@ def register(player,tile) :
         board = [[0 for i in range(13)]for j in range(13)]
         realcard()
         show_tile(player)
+        
         row = len(board)
         col = len(board[0])       
         a = []
@@ -100,9 +101,9 @@ def realcard():
 
 def emptytile():
     if tile != []:
-        a = random.choice(tile())
+        a = random.choice(tile)
         player.append(a)
-        tile().remove(a)
+        tile.remove(a)
         show_tile(player)
     else:
         print("There are no tile.")
