@@ -54,9 +54,6 @@ def register(player,tile) :
         answer1 = int(answer1)
         sum = 0
         board = [[0 for i in range(13)]for j in range(13)]
-        judge_board1 = [[0 for i in range(13)]for j in range(13)]
-        judge_board2 = [[0 for i in range(13)]for j in range(13)]
-        judge = False
         for i in range(answer1):
             realcard()
             for j in range(answer2):
@@ -65,8 +62,6 @@ def register(player,tile) :
                 c = {'color': a, 'number': b}
                 if (c in player):
                     board[i][j] = c
-                    judge_board1[i][j] = c
-                    judge_board2[i][j] = c
                     player.remove(c)
                     judge = True
                 else:
@@ -91,7 +86,7 @@ def register(player,tile) :
         if (judge == True):
             if (sum <= 30):
                 print("Sum is not over 30")
-                print("YOu get 1 tile.")
+                print("You get 1 tile.")
                 if tile != []:
                     a = random.choice(tile)
                     player.append(a)
