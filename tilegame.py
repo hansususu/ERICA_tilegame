@@ -46,6 +46,8 @@ def register(player,tile) :
     if more("Do you want to register?(y/n) ") == True:
         global answer1
         answer1 = input("몇개의 묶음을 등록하시겠습니까?")
+        while answer1.isdigit() == False:
+            answer1 = input("몇개의 묶음을 등록하시겠습니까?")
         answer1 = int(answer1)
         sum = 0
         global board
