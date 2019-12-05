@@ -50,30 +50,30 @@ def  more(message):
 
 def register(player,tile) :
     if more("Do you want to register?(y/n) ") == True:
+        global answer
         answer1 = input("몇개의 묶음을 등록하시겠습니까?")
         answer1 = int(answer1)
         sum = 0
         board = [[0 for i in range(13)]for j in range(13)]
-        for i in range(answer1):
-            realcard()
-            for j in range(answer2):
-                a,b= input().split()
-                b = int(b)
-                c = {'color': a, 'number': b}
-                if (c in player):
-                    board[i][j] = c
-                    player.remove(c)
-                    judge = True
+        realcard()
+        for j in range(answer2):
+            a,b= input().split()
+            b = int(b)
+            c = {'color': a, 'number': b}
+            if (c in player):
+                board[i][j] = c
+                player.remove(c)
+                judge = True
+            else:
+                if tile != []:
+                    a = random.choice(tile)
+                    player.append(a)
+                    tile.remove(a)
+                    show_tile(player)
                 else:
-                    if tile != []:
-                        a = random.choice(tile)
-                        player.append(a)
-                        tile.remove(a)
-                        show_tile(player)
-                    else:
-                        print("There are no tiles")
-                    judge = False
-                    break
+                    print("There are no tiles")
+                judge = False
+                break
         row = len(board)
         col = len(board[0])       
         a = []
@@ -95,16 +95,19 @@ def register(player,tile) :
         emptytile()
 
 def realcard():
-    answer2 = input("How many tiles do you want to enter?")
-    answer2 = int(answer2)
-    print("Please enter tiles")
-    card = []
-    card = input()
-    if (card in player):
-        pass
-    else:
-        print("This tile is not yours")
-        print("You get 1 tile")
+    for i in range(answer1):
+        global answer2
+        answer2 = input("How many tiles do you want to enter?")
+        answer2 = int(answer2)
+        print("Please enter tiles")
+        card = []
+        card = input()
+        if (card in player):
+            pass
+        else:
+            print("This tile is not yours")
+            print("You get 1 tile")
+            break
 
 def emptytile():
     if tile != []:
