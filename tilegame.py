@@ -67,13 +67,16 @@ def register(player,tile) :
         global jud
         for i in range(jud_row):
             origin = []
+            origin1 = []
             jud_board = []
             for j in range(13):
                 if (board[jud_row-1][j] != 0):
                     origin.append(board[jud_row-1][j])
                     jud_board.append(board[jud_row-1][j])
+                    jud_board.append(board[jud_row-1][j])
             origin.sort(key = lambda x: x['number'])
-            if jud_board != origin:
+            origin1.sort(key = lambda x: x['number'])
+            if jud_board != origin or jud_board != origin1:
                 jud = 1
             else:
                 jud = 0
@@ -98,8 +101,8 @@ def realcard():
     for i in range(answer1):
         global answer2
         answer2 = input("How many tiles do you want to enter?")
-        answer2 = int(answer2)
         try:
+            answer2 = int(answer2)
             print("Please enter tiles!")
             for j in range(answer2):
                 a, b = input().split()
