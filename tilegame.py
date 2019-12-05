@@ -44,7 +44,7 @@ def more(message):
 
 def register(player,tile) :
     if more("Do you want to register?(y/n) ") == True:
-        global answer
+        global answer1
         answer1 = input("몇개의 묶음을 등록하시겠습니까?")
         answer1 = int(answer1)
         global sum
@@ -53,14 +53,32 @@ def register(player,tile) :
         board = [[0 for i in range(13)]for j in range(13)]
         realcard()
         show_tile(player)
-        
         row = len(board)
         col = len(board[0])       
         a = []
+        jud_row = 0
         for i in range(row):
+            original = []
+            judge = []
             for j in range(col):
                 if (board[i][j] != 0):
                     a.append(board[i][j])
+            if (board[i] != [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0]):
+                jud_row += 1
+        global jud
+        for i in range(jud_row):
+            origin = []
+            jud_board = []
+            for j in range(13):
+                if (board[jud_row-1][j] != 0):
+                    origin.append(board[jud_row-1][j])
+                    jud_board.append(board[jud_row-1][j])
+            origin.sort(key = lambda x: x['number'])
+            if jud_board != origin:
+                jud = 1
+            else:
+                jud = 0
+        print(jud)
         for i in range(len(a)):
             sum += a[i]['number']
         if (judge == True):
@@ -99,6 +117,13 @@ def realcard():
             print("Please re-enter from the beginning.")
             realcard()
 
+def type_tile(player):
+    if (c in player):
+        board[i][j] = c
+        player.remove(c)
+        global judge
+        judge = True
+ 
 def emptytile():
     if tile != []:
         a = random.choice(tile)
