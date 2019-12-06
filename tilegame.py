@@ -1,6 +1,6 @@
 import random 
-player = []
-computer = []
+player1 = []
+player2 = []
 
 def make_tile():
     color = {"red","orange", "blue", "black"}
@@ -21,15 +21,15 @@ def make_tile():
 def dist_tile(tile):
     for i in range(13):
         a = random.choice(tile)
-        player.append(a)
+        player1.append(a)
         tile.remove(a)
         b = random.choice(tile)
-        computer.append(b)
+        player2.append(b)
         tile.remove(b)
 
-def show_tile(player):
+def show_tile(who):
     print("my tile is")
-    for tile in player:
+    for tile in who:
         print(str(tile['color']) + ' '+ str(tile['number']), end = ' ')
     print()
 
@@ -42,7 +42,7 @@ def more(message):
     else:
         return False
 
-def register(player,tile) :
+def register(who,tile) :
     if more("Do you want to register?(y/n) ") == True:
         global answer1
         answer1 = input("몇개의 묶음을 등록하시겠습니까?")
@@ -52,7 +52,7 @@ def register(player,tile) :
         sum = 0
         global board
         board = [[0 for i in range(13)]for j in range(13)]
-        realcard()
+        realcard(who)
         show_tile(player)
         row = len(board)
         col = len(board[0])       
@@ -88,18 +88,18 @@ def register(player,tile) :
             if sum <= 30:
                 print("Sum is not over 30")
                 print("You get 1 tile.")
-                emptytile()
+                emptytile(who)
             elif jud == 1:
                 print("You entered an unaligned tiles.")
                 print("You get 1 tile.")
-                emptytile()
+                emptytile(who)
             else:
                 print("You success to register.")
     else :
         print("You get 1 tile.")
-        emptytile()
+        emptytile(who)
 
-def realcard():
+def realcard(who):
     for i in range(answer1):
         global answer2
         answer2 = input("How many tiles do you want to enter?")
@@ -107,13 +107,13 @@ def realcard():
             answer2 = input("How many tiles do you want to enter?")
         answer2 = int(answer2)
         if answer2 >= 3:
-            enter_tile(i)
+            enter_tile(i,who)
         else:
             print("You should register more than 3 tiles.")
             print("Please re-enter.")
-            realcard()
+            realcard(who)
 
-def enter_tile(i):
+def enter_tile(i,who):
     print("Please enter tiles!")
     for j in range(answer2):
         try:
@@ -122,50 +122,50 @@ def enter_tile(i):
             c = {'color':a, 'number':b}
             if c in player:
                 board[i][j] = c
-                player.remove(c)
-               global judge
+                who.remove(c)
+                global judge
                 judge = True
             else:
                 print("This tile is not yours")
                 print("Please re-enter the tile.")
-                enter_tile(i)
+                enter_tile(i,who)
         except:
             print("Tile input is no formatted.")
             print("Please re-enter the tile.")
-            enter_tile(i)
+            enter_tile(i,who)
 
-def emptytile():
+def emptytile(who):
     if tile != []:
         a = random.choice(tile)
-        player.append(a)
+        who.append(a)
         tile.remove(a)
-        show_tile(player)
+        show_tile(who)
     else:
         print("There are no tile.")
 
-def arrange_tile(player):
+def arrange_tile(who):
     answer = input("Do you want sort? (789/777/NO)")
     while not (answer == '789' or answer == '777' or answer == 'NO'):
         answer = input("Do you want sort? (789/777/NO)")
     if answer == '777':
-        player.sort(key=lambda x: x['number'])
+        who.sort(key=lambda x: x['number'])
     elif answer == '789':
-        player.sort(key=lambda x: (x['color'], x['number']))
+        who.sort(key=lambda x: (x['color'], x['number']))
 
-def arrange_tileagain(player):
+def arrange_tileagain(who):
     if more("Do you want sort again?(y/n) ") == True:
-        arrange_tile(player)
+        arrange_tile(who)
 
 
 def tilegame():
     tile = make_tile()
     dist_tile(tile)
-    show_tile(player)
-    arrange_tile(player)
-    show_tile(player)
-    arrange_tileagain(player)
-    show_tile(player)
-    register(player,tile)
+    show_tile(player1)
+    arrange_tile(player1)
+    show_tile(player1)
+    arrange_tileagain(player1)
+    show_tile(player1)
+    register(player1,tile)
 
 tilegame()
 
