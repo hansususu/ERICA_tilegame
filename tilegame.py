@@ -106,7 +106,12 @@ def realcard():
         while answer2.isdigit() == False:
             answer2 = input("How many tiles do you want to enter?")
         answer2 = int(answer2)
-        enter_tile(i)
+        if answer2 >= 3:
+            enter_tile(i)
+        else:
+            print("You should register more than 3 tiles.")
+            print("Please re-enter.")
+            realcard()
 
 def enter_tile(i):
     print("Please enter tiles!")
