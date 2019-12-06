@@ -158,12 +158,10 @@ def arrange_tileagain(who):
 
 def show_regboard():
     for i in range(jud_row):
-        cpboard =[]
         print(i+1,'th:')
         for j in range(13):
             if board[i][j] != 0:
-                cpboard.append(board[i][j])
-                print(str(cpboard[j]['color'])+' '+str(cpboard[j]['number']), end = ' ')
+                print(str(board[i][j]['color'])+' '+str(board[i][j]['number']), end = ' ')
 
 def tilegame():
     tile = make_tile()
