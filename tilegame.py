@@ -156,6 +156,14 @@ def arrange_tileagain(who):
     if more("Do you want sort again?(y/n) ") == True:
         arrange_tile(who)
 
+def show_regboard():
+    for i in range(jud_row):
+        cpboard =[]
+        print(i+1,'th:')
+        for j in range(13):
+            if board[i][j] != 0:
+                cpboard.append(board[i][j])
+                print(str(cpboard[j]['color'])+' '+str(cpboard[j]['number']), end = ' ')
 
 def tilegame():
     tile = make_tile()
@@ -166,6 +174,7 @@ def tilegame():
     arrange_tileagain(player1)
     show_tile(player1)
     register(player1,tile)
+    show_regboard()
 
 tilegame()
 
