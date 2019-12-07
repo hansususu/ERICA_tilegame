@@ -168,6 +168,22 @@ def show_regboard():
             if board[i][j] != 0:
                 print(str(board[i][j]['color'])+' '+str(board[i][j]['number']), end = ' ')
 
+def regist_newtile(who):
+    ans = input("몇개의 묶음을 등록하시겠습니까?")
+    ans = int(ans)
+    for i in range(ans):
+        ans1 = input("How many tiles do you want to enter?")
+        ans1 = int(ans1)
+        for j in range(ans1):
+            a, b = input().split()
+            b = int(b)
+            c = {'color':a, 'number':b}
+            if c in who:
+                board[jud_row][j] = c
+                who.remove(C)
+            else:
+                print("This tile is not yours.")
+
 def tilegame():
     tile = make_tile()
     dist_tile(tile)
