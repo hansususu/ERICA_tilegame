@@ -53,10 +53,11 @@ def register(who,tile) :
         global board
         board = [[0 for i in range(13)]for j in range(13)]
         realcard(who)
-        show_tile(player)
+        show_tile(who)
         row = len(board)
         col = len(board[0])       
         a = []
+        global jud_row
         jud_row = 0
         for i in range(row):
             original = []
@@ -120,7 +121,7 @@ def enter_tile(i,who):
             a, b = input().split()
             b = int(b)
             c = {'color':a, 'number':b}
-            if c in player:
+            if c in who:
                 board[i][j] = c
                 who.remove(c)
                 global judge
