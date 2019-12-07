@@ -150,12 +150,16 @@ def arrange_tile(who):
         answer = input("Do you want sort? (789/777/NO)")
     if answer == '777':
         who.sort(key=lambda x: x['number'])
+        show_tile(who)
+        if more("Do you want sort again?(y/n) ") == False:
+            return 0
     elif answer == '789':
-        who.sort(key=lambda x: (x['color'], x['number']))
-
-def arrange_tileagain(who):
-    if more("Do you want sort again?(y/n) ") == True:
-        arrange_tile(who)
+        who.sort(key=lambda x: (x['color'],x['number']))
+        show_tile(who)
+        if more("Do you want sort again?(y/n) ") == False:
+            return 0
+    else:
+        return 0
 
 def show_regboard():
     for i in range(jud_row):
