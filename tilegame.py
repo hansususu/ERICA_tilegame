@@ -172,6 +172,11 @@ def show_regboard():
 def regist_newtile(who):
     ans = input("몇개의 묶음을 등록하시겠습니까?")
     ans = int(ans)
+    row = len(board)
+    real_row = 0
+    for i in range(row):
+        if board[i] != [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]:
+            real_row += 1
     for i in range(ans):
         ans1 = input("How many tiles do you want to enter?")
         ans1 = int(ans1)
@@ -180,7 +185,7 @@ def regist_newtile(who):
             b = int(b)
             c = {'color':a, 'number':b}
             if c in who:
-                board[jud_row][j] = c
+                board[real_row][j] = c
                 who.remove(C)
             else:
                 print("This tile is not yours.")
