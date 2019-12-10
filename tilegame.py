@@ -180,16 +180,21 @@ def regist_newtile(who):
     for i in range(ans):
         ans1 = input("How many tiles do you want to enter?")
         ans1 = int(ans1)
-        for j in range(ans1):
-            a, b = input().split()
-            b = int(b)
-            c = {'color':a, 'number':b}
-            if c in who:
-                board[real_row][j] = c
-                who.remove(c)
-            else:
-                print("This tile is not yours.")
-
+        if ans1 >= 3:
+            for j in range(ans1):
+                a, b = input().split()
+                b = int(b)
+                c = {'color':a, 'number':b}
+                if c in who:
+                    board[real_row][j] = c
+                    who.remove(c)
+                else:
+                    print("This tile is not yours.")
+                    print("Please re-enter the tile.")
+        else:
+            print("You should register more than 3 tiles.")
+            print("Please re-enter.")
+        
 def tilegame():
     tile = make_tile()
     dist_tile(tile)
