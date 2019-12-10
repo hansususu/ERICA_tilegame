@@ -145,21 +145,22 @@ def emptytile(who):
         print("There are no tile.")
 
 def arrange_tile(who):
-    answer = input("Do you want sort? (789/777/NO)")
-    while not (answer == '789' or answer == '777' or answer == 'NO'):
+    while 1:
         answer = input("Do you want sort? (789/777/NO)")
-    if answer == '777':
-        who.sort(key=lambda x: x['number'])
-        show_tile(who)
-        if more("Do you want sort again?(y/n) ") == False:
+        while not (answer == '789' or answer == '777' or answer == 'NO'):
+            answer = input("Do you want sort? (789/777/NO)")
+        if answer == '777':
+            who.sort(key=lambda x: x['number'])
+            show_tile(who)
+            if more("Do you want sort again?(y/n) ") == False:
+                return 0
+        elif answer == '789':
+            who.sort(key=lambda x: (x['color'],x['number']))
+            show_tile(who)
+            if more("Do you want sort again?(y/n) ") == False:
+                return 0
+        else:
             return 0
-    elif answer == '789':
-        who.sort(key=lambda x: (x['color'],x['number']))
-        show_tile(who)
-        if more("Do you want sort again?(y/n) ") == False:
-            return 0
-    else:
-        return 0
 
 def show_regboard():
     for i in range(jud_row):
@@ -190,7 +191,6 @@ def tilegame():
     show_tile(player1)
     arrange_tile(player1)
     show_tile(player1)
-    arrange_tileagain(player1)
     show_tile(player1)
     register(player1,tile)
     show_regboard()
