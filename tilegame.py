@@ -186,7 +186,7 @@ def regist_newtile(who):
             c = {'color':a, 'number':b}
             if c in who:
                 board[real_row][j] = c
-                who.remove(C)
+                who.remove(c)
             else:
                 print("This tile is not yours.")
 
@@ -195,10 +195,10 @@ def tilegame():
     dist_tile(tile)
     show_tile(player1)
     arrange_tile(player1)
-    show_tile(player1)
-    show_tile(player1)
     register(player1,tile)
     show_regboard()
+    regist_newtile(player1)
+    show_regboard() 
 
 tilegame()
 
