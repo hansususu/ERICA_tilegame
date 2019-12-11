@@ -194,7 +194,27 @@ def regist_newtile(who):
         else:
             print("You should register more than 3 tiles.")
             print("Please re-enter.")
+            regist_newtile(who)
         
+def regist_atile(who):
+    ans = input("Where do you want to register?")
+    ans = int(ans)
+    col = 0
+    for i in range(13):
+        if board[ans][i] != 0:
+            col += 1
+    ans1 = input("Where do you want to register a tile?(front/back) ")
+    if ans1 == 'front':
+        th = 0
+    else:
+        th = col
+    print("Please enter a tile!")
+    a, b = input().split()
+    b = int(b)
+    c = {'color':a, 'number':b}
+    if c in who:
+        board[i].insert(th,c)
+
 def tilegame():
     tile = make_tile()
     dist_tile(tile)
