@@ -179,21 +179,27 @@ def regist_newtile(who):
             real_row += 1
     for i in range(ans):
         ans1 = input("How many tiles do you want to enter?")
+        while ans1.isdigit() == False:
+            ans1 = input("How many tiles to you want to enter?")
         ans1 = int(ans1)
         if ans1 >= 3:
             for j in range(ans1):
-                a, b = input().split()
-                b = int(b)
-                c = {'color':a, 'number':b}
-                if c in who:
-                    board[real_row][j] = c
-                    who.remove(c)
-                else:
-                    print("This tile is not yours.")
+                try:
+                    a, b = input().split()
+                    b = int(b)
+                    c = {'color':a, 'number':b}
+                    if c in who:
+                        board[real_row][j] = c
+                        who.remove(c)
+                    else:
+                        print("This tile is not yours.")
+                        print("Please re-enter the tile.")
+                except:
+                    print("Tile input is not formatted.")
                     print("Please re-enter the tile.")
         else:
             print("You should register more than 3 tiles.")
-            print("Please re-enter.")
+            print("Please re-enter")
             regist_newtile(who)
         
 def regist_atile(who):
