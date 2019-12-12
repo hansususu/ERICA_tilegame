@@ -171,6 +171,8 @@ def show_regboard():
 
 def regist_newtile(who):
     ans = input("몇개의 묶음을 등록하시겠습니까?")
+    while ans.isdigit() == False:
+        ans = input("몇개의 묶음을 등록하시겠습니까?")
     ans = int(ans)
     row = len(board)
     real_row = 0
