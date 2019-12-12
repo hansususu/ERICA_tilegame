@@ -206,6 +206,7 @@ def regist_atile(who):
     ans = input("Where do you want to register?")
     ans = int(ans)
     col = 0
+    cpcol = board[ans]
     for i in range(13):
         if board[ans][i] != 0:
             col += 1
@@ -220,6 +221,19 @@ def regist_atile(who):
     c = {'color':a, 'number':b}
     if c in who:
         board[i].insert(th,c)
+    jud_col1 = []
+    jud_col2 = []
+    for i in range(col):
+        if (board[ans-1][i] != 0):
+            jud_col1.append(board[ans-1][i])
+            jud_col2.append(board[ans-1][i])
+    jud_col1.sort(key = lambda x: x['number'])
+    jud_col2.sort(key = lambda x: (x['color'], x['number']))
+    if board != jud_col1 or board != jud_col2:
+        print("You should enter unaligned tile")
+        print("Pleas re-enter a tile.")
+        board[ans] = cpcol
+        regist_newtile(who)
 
 def tilegame():
     tile = make_tile()
