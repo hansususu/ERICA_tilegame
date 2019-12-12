@@ -75,10 +75,10 @@ def register(who,tile) :
             for j in range(13):
                 if (board[jud_row-1][j] != 0):
                     origin.append(board[jud_row-1][j])
-                    jud_board.append(board[jud_row-1][j])
+                    origin1.append(board[jud_row-1][j])
                     jud_board.append(board[jud_row-1][j])
             origin.sort(key = lambda x: x['number'])
-            origin1.sort(key = lambda x: x['number'])
+            origin1.sort(key = lambda x: (x['color'],x['number']))
             if jud_board != origin or jud_board != origin1:
                 jud = 1
             else:
