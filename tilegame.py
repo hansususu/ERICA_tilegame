@@ -163,11 +163,16 @@ def arrange_tile(who):
             return 0
 
 def show_regboard():
-    for i in range(jud_row):
+    row = 0
+    for i in range(13):
+        if board[i] != [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]:
+            row += 1
+    for i in range(row):
         print(i+1,'th:')
         for j in range(13):
             if board[i][j] != 0:
                 print(str(board[i][j]['color'])+' '+str(board[i][j]['number']), end = ' ')
+        print("\n")
 
 def regist_newtile(who):
     ans = input("몇개의 묶음을 등록하시겠습니까?")
@@ -247,5 +252,11 @@ def tilegame():
     regist_newtile(player1)
     show_regboard() 
 
+def tilegame():
+    tile = make_tile()
+    dist_tile(tile)
+    show_tile(player1)
+    while 1:
+        
 tilegame()
 
