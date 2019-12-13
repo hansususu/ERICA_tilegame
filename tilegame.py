@@ -247,16 +247,16 @@ def tilegame():
     dist_tile(tile)
     show_tile(player1)
     arrange_tile(player1)
-    register(player1,tile)
-    show_regboard()
-    regist_newtile(player1)
-    show_regboard() 
-
-def tilegame():
-    tile = make_tile()
-    dist_tile(tile)
-    show_tile(player1)
-    while 1:
+    register(player1, tile)
+    a = 0
+    while a != 4:
+        a = input("Menu : show_board(1), register_newtile(2), register_a_tile(3), pass(4)")
+        if a == 1:
+            show_regboard()
+        elif a == 2:
+            regist_newtile(player1)
+        elif a == 3:
+            regist_atile(player1)
         
 tilegame()
 
