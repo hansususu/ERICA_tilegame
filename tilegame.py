@@ -42,6 +42,10 @@ def more(message):
     else:
         return False
 
+def make_board():
+    global board
+    board = [[0 for i in range(13)]for j in range(13)]
+
 def register(who,tile) :
     if more("Do you want to register?(y/n) ") == True:
         global answer1
@@ -50,8 +54,7 @@ def register(who,tile) :
             answer1 = input("몇개의 묶음을 등록하시겠습니까?")
         answer1 = int(answer1)
         sum = 0
-        global board
-        board = [[0 for i in range(13)]for j in range(13)]
+        cpboard = board
         realcard(who)
         show_tile(who)
         row = len(board)
@@ -91,34 +94,41 @@ def register(who,tile) :
                 print("Sum is not over 30")
                 print("You get 1 tile.")
                 who = cptile
+                board = cpboard
                 emptytile(who)
             elif jud == 1:
                 print("You entered an unaligned tiles.")
                 print("You get 1 tile.")
                 who = cptile
+                board = cpboard
                 emptytile(who)
             else:
                 print("You success to register.")
     else :
         print("You get 1 tile.")
         who = cptile
+        board = cpboard
         emptytile(who)
 
 def realcard(who):
-    for i in range(answer1):
+    row = 0
+    for i in range(13):
+        if board[i] != [0,0,0,0,0,0,0,0,0,0,0,0,0]:
+            row += 1
+    for row in range(answer1):
         global answer2
         answer2 = input("How many tiles do you want to enter?")
         while answer2.isdigit() == False:
             answer2 = input("How many tiles do you want to enter?")
         answer2 = int(answer2)
         if answer2 >= 3:
-            enter_tile(i,who)
+            enter_tile(row,who)
         else:
             print("You should register more than 3 tiles.")
             print("Please re-enter.")
             realcard(who)
 
-def enter_tile(i,who):
+def enter_tile(row,who):
     print("Please enter tiles!")
     cptile = who
     for j in range(answer2):
@@ -127,7 +137,7 @@ def enter_tile(i,who):
             b = int(b)
             c = {'color':a, 'number':b}
             if c in who:
-                board[i][j] = c
+                board[row][j] = c
                 who.remove(c)
                 global judge
                 judge = True
