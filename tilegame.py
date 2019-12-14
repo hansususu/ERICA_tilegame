@@ -57,6 +57,7 @@ def register(who,tile) :
         row = len(board)
         col = len(board[0])       
         a = []
+        cptile = who
         global jud_row
         jud_row = 0
         for i in range(row):
@@ -89,15 +90,18 @@ def register(who,tile) :
             if sum <= 30:
                 print("Sum is not over 30")
                 print("You get 1 tile.")
+                who = cptile
                 emptytile(who)
             elif jud == 1:
                 print("You entered an unaligned tiles.")
                 print("You get 1 tile.")
+                who = cptile
                 emptytile(who)
             else:
                 print("You success to register.")
     else :
         print("You get 1 tile.")
+        who = cptile
         emptytile(who)
 
 def realcard(who):
