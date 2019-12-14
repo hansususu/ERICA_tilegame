@@ -120,6 +120,7 @@ def realcard(who):
 
 def enter_tile(i,who):
     print("Please enter tiles!")
+    cptile = who
     for j in range(answer2):
         try:
             a, b = input().split()
@@ -133,10 +134,12 @@ def enter_tile(i,who):
             else:
                 print("This tile is not yours")
                 print("Please re-enter the tile.")
+                who = cptile
                 enter_tile(i,who)
         except:
             print("Tile input is no formatted.")
             print("Please re-enter the tile.")
+            who = cptile
             enter_tile(i,who)
 
 def emptytile(who):
