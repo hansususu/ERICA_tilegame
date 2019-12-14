@@ -216,7 +216,7 @@ def regist_newtile(who):
         for i in range(ans):
             jud_col1 = board[bdrow]
             jud_col2 = board[bdrow]
-            origin =board[bdrow]
+            origin = board[bdrow]
             jud_col1.sort(key = lambda x: x['number'])
             jud_col2.sort(key = lambda x: (x['color'],x['number']))
             if origin != jud_col1 or origin != jud_col2:
@@ -225,12 +225,14 @@ def regist_newtile(who):
             else:
                 jud_cold = 0
                 bdrow += 1
-        if jud_col == 1:
-            print("You shoul enter unaligned tile")
-            print("Please re-enter the tile")
-            board = cpboard
-            regist_newtile(who,board)
-        
+    if jud_cold == 1:
+        print("You should enter unaligned tile.")
+        print("Please re-enter the tile")
+        board = cpboard
+        regist_newtile(who,board)
+    else:
+        print("You are success to register tiles!")
+
 def regist_atile(who):
     ans = input("Where do you want to register?")
     ans = int(ans)
