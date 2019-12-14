@@ -111,10 +111,6 @@ def register(who,tile) :
         emptytile(who)
 
 def realcard(who):
-    row = 0
-    for i in range(13):
-        if board[i] != [0,0,0,0,0,0,0,0,0,0,0,0,0]:
-            row += 1
     for row in range(answer1):
         global answer2
         answer2 = input("How many tiles do you want to enter?")
@@ -131,6 +127,10 @@ def realcard(who):
 def enter_tile(row,who):
     print("Please enter tiles!")
     cptile = who
+    row = 0
+    for i in range(13):
+        if board[i] != [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]:
+            row += 1
     for j in range(answer2):
         try:
             a, b = input().split()
