@@ -196,35 +196,31 @@ def regist_newtile(who,board):
     while ans.isdigit() == False:
         ans = input("몇개의 묶음을 등록하시겠습니까?")
     ans = int(ans)
-    row = len(board)
-    real_row = 0
-    for i in range(row):
-        if board[i] != [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]:
-            real_row += 1
+    cpboard = board
+    bdrow = 0
+    jud_col = 0
+    for i in range(13):
+        if board[i] != [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0]:
+            bdrow += 1
     for i in range(ans):
-        ans1 = input("How many tiles do you want to enter?")
-        while ans1.isdigit() == False:
-            ans1 = input("How many tiles to you want to enter?")
-        ans1 = int(ans1)
-        cpboard = board
-        bdrow = 0
-        for i in range(13):
-            if board[i] != [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0]:
-                bdrow += 1
-        for i in range(ans):
-            realcard(who)
-        for i in range(ans):
-            jud_col1 = board[bdrow]
-            jud_col2 = board[bdrow]
-            origin = board[bdrow]
-            jud_col1.sort(key = lambda x: x['number'])
-            jud_col2.sort(key = lambda x: (x['color'],x['number']))
-            if origin != jud_col1 or origin != jud_col2:
-                jud_col = 1
-                bdrow += 1
-            else:
-                jud_cold = 0
-                bdrow += 1
+        realcard(who)
+    for i in range(ans):
+        jud_col1 = []
+        jud_col2 = []
+        origin = []
+        for j in range(13):
+            if board[bdrow][j] != 0:
+                jud_col1.append(board[bdrow][j])
+                jud_col2.append(board[bdrow][j])
+                origin.append(board[bdrow][j])
+        jud_col1.sort(key = lambda x: x['number'])
+        jud_col2.sort(key = lambda x: (x['color'],x['number']))
+        if origin != jud_col1 or origin != jud_col2:
+            jud_col = 1
+            bdrow += 1
+        else:
+            jud_cold = 0
+            bdrow += 1
     if jud_cold == 1:
         print("You should enter unaligned tile.")
         print("Please re-enter the tile")
