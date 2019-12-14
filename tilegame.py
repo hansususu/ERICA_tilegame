@@ -206,25 +206,30 @@ def regist_newtile(who):
         while ans1.isdigit() == False:
             ans1 = input("How many tiles to you want to enter?")
         ans1 = int(ans1)
-        if ans1 >= 3:
-            for j in range(ans1):
-                try:
-                    a, b = input().split()
-                    b = int(b)
-                    c = {'color':a, 'number':b}
-                    if c in who:
-                        board[real_row][j] = c
-                        who.remove(c)
-                    else:
-                        print("This tile is not yours.")
-                        print("Please re-enter the tile.")
-                except:
-                    print("Tile input is not formatted.")
-                    print("Please re-enter the tile.")
-        else:
-            print("You should register more than 3 tiles.")
-            print("Please re-enter")
-            regist_newtile(who)
+        cpboard = board
+        bdrow = 0
+        for i in range(13):
+            if board[i] != [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0]:
+                bdrow += 1
+        for i in range(ans):
+            realcard(who)
+        for i in range(ans):
+            jud_col1 = board[bdrow]
+            jud_col2 = board[bdrow]
+            origin =board[bdrow]
+            jud_col1.sort(key = lambda x: x['number'])
+            jud_col2.sort(key = lambda x: (x['color'],x['number']))
+            if origin != jud_col1 or origin != jud_col2:
+                jud_col = 1
+                bdrow += 1
+            else:
+                jud_cold = 0
+                bdrow += 1
+        if jud_col == 1:
+            print("You shoul enter unaligned tile")
+            print("Please re-enter the tile")
+            board = cpboard
+            regist_newtile(who,board)
         
 def regist_atile(who):
     ans = input("Where do you want to register?")
@@ -271,7 +276,7 @@ def tilegame():
         if a == 1:
             show_regboard()
         elif a == 2:
-            regist_newtile(player1)
+            regist_newtile(player1,board)
         elif a == 3:
             regist_atile(player1)
         
