@@ -191,7 +191,7 @@ def show_regboard():
                 print(str(board[i][j]['color'])+' '+str(board[i][j]['number']), end = ' ')
         print("\n")
 
-def regist_newtile(who):
+def regist_newtile(who,board):
     ans = input("몇개의 묶음을 등록하시겠습니까?")
     while ans.isdigit() == False:
         ans = input("몇개의 묶음을 등록하시겠습니까?")
