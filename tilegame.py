@@ -73,20 +73,28 @@ def register(who,tile) :
                 jud_row += 1
         global jud
         for i in range(jud_row):
-            origin = []
-            origin1 = []
             jud_board = []
+            col = 0
             for j in range(13):
                 if (board[jud_row-1][j] != 0):
-                    origin.append(board[jud_row-1][j])
-                    origin1.append(board[jud_row-1][j])
+                    col += 1
                     jud_board.append(board[jud_row-1][j])
-            origin.sort(key = lambda x: x['number'])
-            origin1.sort(key = lambda x: (x['color'],x['number']))
-            if jud_board != origin or jud_board != origin1:
-                jud = 1
-            else:
-                jud = 0
+            for j in range(col-1):
+                if jud_board[j]['number'] == jud_board[j+1]['number']:
+                    if jud_board[j]['color'] != jud_board[j+1]['color']:
+                        jud = 0
+                    else:
+                        jud = 1
+                        break
+                elif jud_board[j]['number'] == jud_board[j+1]['number']-1:
+                    if jud_board[j]['color'] == jud_board[j+1]['color']:
+                        jud = 0
+                    else:
+                        jud = 1
+                        break
+                else:
+                    jud = 1
+                    break
         for i in range(len(a)):
             sum += a[i]['number']
         if judge == True:
