@@ -60,6 +60,7 @@ def register(who,tile) :
         row = len(board)
         col = len(board[0])       
         a = []
+        global cptile
         cptile = who
         global jud_row
         jud_row = 0
@@ -134,7 +135,6 @@ def realcard(who):
 
 def enter_tile(row,who):
     print("Please enter tiles!")
-    cptile = who
     row = 0
     for i in range(13):
         if board[i] != [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]:
@@ -154,11 +154,13 @@ def enter_tile(row,who):
                 print("Please re-enter the tile.")
                 who = cptile
                 enter_tile(i,who)
+                break
         except:
             print("Tile input is no formatted.")
             print("Please re-enter the tile.")
             who = cptile
             enter_tile(i,who)
+            break
 
 def emptytile(who):
     if tile != []:
