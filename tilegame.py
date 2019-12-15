@@ -250,9 +250,9 @@ def regist_atile(who):
     ans = input("Where do you want to register?")
     ans = int(ans)
     col = 0
-    cpcol = board[ans]
+    cpcol = board[ans-1]
     for i in range(13):
-        if board[ans][i] != 0:
+        if board[ans-1][i] != 0:
             col += 1
     ans1 = input("Where do you want to register a tile?(front/back) ")
     if ans1 == 'front':
@@ -263,22 +263,35 @@ def regist_atile(who):
     a, b = input().split()
     b = int(b)
     c = {'color':a, 'number':b}
+    col = 0
+    jud_col = 0
     if c in who:
-        board[i].insert(th,c)
-    jud_col1 = []
-    jud_col2 = []
+        board[ans-1].insert(th,c)
     for i in range(col):
-        if (board[ans-1][i] != 0):
+        if board[ans-1][i] != 0:
             jud_col1.append(board[ans-1][i])
-            jud_col2.append(board[ans-1][i])
-    jud_col1.sort(key = lambda x: x['number'])
-    jud_col2.sort(key = lambda x: (x['color'], x['number']))
-    if board != jud_col1 or board != jud_col2:
-        print("You should enter unaligned tile")
-        print("Pleas re-enter a tile.")
-        board[ans] = cpcol
-        regist_newtile(who)
-
+    for i in range(col):
+        if jud_col1[i]['number'] == jud_col1[i+1]['number']:
+            if jud_col1[i]['color'] != jud_col1[i+1]['color']:
+                jud_col = 0
+            else:
+                jud_col = 1
+                break
+        elif jud_col1[i]['number'] == jud_col1[i+1]['number']-1:
+            if jud_col1[i]['color'] == jud_col1[i+1]['color']:
+                jud_col = 0
+            else:
+                jud_col = 1
+                break
+        else:
+            jud_col = 1
+            break
+    if jud_cold == 1:
+        print("You sould enter aligned tile.")
+        print("Please re-enter a tile.")
+        board[ans-1] = cpcol
+        regist_atile(who)
+        
 def tilegame():
     tile = make_tile()
     dist_tile(tile)
