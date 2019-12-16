@@ -248,6 +248,8 @@ def regist_newtile(who,board):
 
 def regist_atile(who):
     ans = input("Where do you want to register?")
+    while ans.isdigit() == False:
+        ans = input("Where do you want to register?")
     ans = int(ans)
     col = 0
     cpcol = board[ans-1]
@@ -264,34 +266,40 @@ def regist_atile(who):
     b = int(b)
     c = {'color':a, 'number':b}
     col = 0
+    jud_col1 = []
     jud_col = 0
     if c in who:
         board[ans-1].insert(th,c)
-    for i in range(col):
-        if board[ans-1][i] != 0:
-            jud_col1.append(board[ans-1][i])
-    for i in range(col):
-        if jud_col1[i]['number'] == jud_col1[i+1]['number']:
-            if jud_col1[i]['color'] != jud_col1[i+1]['color']:
-                jud_col = 0
+        for i in range(13):
+            if board[ans-1][i] != 0:
+                jud_col1.append(board[ans-1][i])
+        for i in range(col):
+            if jud_col1[i]['number'] == jud_col1[i+1]['number']:
+                if jud_col1[i]['color'] != jud_col1[i+1]['color']:
+                    jud_col = 0
+                else:
+                    jud_col = 1
+                    break
+            elif jud_col1[i]['number'] == jud_col1[i+1]['number']-1:
+                if jud_col1[i]['color'] == jud_col1[i+1]['color']:
+                    jud_col = 0
+                else:
+                    jud_col = 1
+                    break
             else:
                 jud_col = 1
                 break
-        elif jud_col1[i]['number'] == jud_col1[i+1]['number']-1:
-            if jud_col1[i]['color'] == jud_col1[i+1]['color']:
-                jud_col = 0
-            else:
-                jud_col = 1
-                break
-        else:
-            jud_col = 1
-            break
-    if jud_cold == 1:
+    else:
+        print("This tile tis not yours.")
+        print("Please re-enter the tile.")
+    if jud_col == 1:
         print("You sould enter aligned tile.")
         print("Please re-enter a tile.")
         board[ans-1] = cpcol
         regist_atile(who)
-        
+    else:
+        print("You success to register a tile!")
+
 def tilegame():
     tile = make_tile()
     dist_tile(tile)
