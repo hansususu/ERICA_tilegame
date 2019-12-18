@@ -30,10 +30,16 @@ def dist_tile(tile):
         tile.remove(b)
 
 def show_tile(who):
-    print("my tile is")
-    for tile in who:
-        print(str(tile['color']) + ' '+ str(tile['number']), end = ' ')
-    print()
+    if who == player1:
+        print("player1 tile is")
+        for tile in who:
+            print(str(tile['color']) + ' '+ str(tile['number']), end = ' ')
+        print()
+    elif who == player2:
+        print("player2 tile is")
+        for tile in who:
+            print(str(tile['color']) + ' '+ str(tile['number']), end = ' ')
+        print()
 
 def more(message):
     answer = input(message)
