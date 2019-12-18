@@ -300,7 +300,22 @@ def regist_atile(who):
     else:
         print("You success to register a tile!")
 
+def turn_dice():
+    dice1 = random.randrange(1,7)
+    dice2 - random.randrange(1,7)
+    global first_turn
+    global second_turn
+    if dice1 > dice2:
+        first_turn = player1
+        second_turn = player2
+    elif dice1 < dice2:
+        first_turn = player2
+        second_turn = player1
+    else:
+        turn_dice()
+
 def tilegame():
+    turn_dice()
     tile = make_tile()
     dist_tile(tile)
     show_tile(player1)
