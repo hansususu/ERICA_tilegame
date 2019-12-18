@@ -308,66 +308,109 @@ def regist_atile(who):
 def turn_dice():
     dice1 = random.randrange(1,7)
     dice2 - random.randrange(1,7)
-    global first_turn
-    global second_turn
-    print("player1's dice is", dice1)
-    print("player2's dice is", dice2)
+    global turn
+    turn = True
+    print("Player1's dice is", dice1)
+    print("Player2's dice is", dice2)
     if dice1 > dice2:
-        first_turn = player1
-        second_turn = player2
-        print("player1 plays first!")
+        turn = True
+        print("Player1 plays first!")
     elif dice1 < dice2:
-        first_turn = player2
-        second_turn = player1
-        print("player2 plays first!")
+        turn = False
+        print("Player2 plays first!")
     else:
-        print("re_roll a dice!")
+        print("Re-roll dice!")
         turn_dice()
+
+def player1_turn():
+    if turn == True:
+        if jud_success == 0:
+            show_tile(player1)
+            arrange_tile(player1)
+            register(player1, tile, jud_success, board)
+        elif jud_success == 1 or jud_success == 2:
+            a = input("Menu : show_board(1), register_newtile(2), register_a_tile(3),pick_atile(4), show_tile(5)")
+            if a == 1:
+                show_regboard()
+            elif a == 2:
+                regist_newtile(player1, board)
+            elif a == 3:
+                regist_atile(player1)
+            elif a == 4:
+                emptytile(player1)
+            elif a == 5:
+                show_tile(player1)
+    else:
+        if jud_success == 0 or jud_success == 1:
+            show_tile(player1)
+            arrange_tile(player1)
+            register(player1, tile, jud_success, board)
+        elif jud_success == 2:
+            a = input("Menu : show_board(1), register_newtile(2), register_a_tile(3),pick_atile(4), show_tile(5)")
+            if a == 1:
+                show_regboard()
+            elif a == 2:
+                regist_newtile(player1, board)
+            elif a == 3:
+                regist_atile(player1)
+            elif a == 4:
+                emptytile(player1)
+            elif a == 5:
+                show_tile(player1)
+
+def player2_turn:
+    if turn == False:
+        if jud_success == 0:
+            show_tile(player2)
+            arrange_tile(player2)
+            register(player2, tile, jud_success, board)
+        elif jud_success == 1 or jud_success == 2:
+            a = input("Menu : show_board(1), register_newtile(2), register_a_tile(3),pick_atile(4), show_tile(5)")
+            if a == 1:
+                show_regboard()
+            elif a == 2:
+                regist_newtile(player2, board)
+            elif a == 3:
+                regist_atile(player2)
+            elif a == 4:
+                emptytile(player2)
+            elif a == 5:
+                show_tile(player2)
+    else:
+        if jud_success == 0 or jud_success == 1:
+            show_tile(player2)
+            arrange_tile(player2)
+            register(player2, tile, jud_success, board)
+        elif jud_success == 2:
+            a = input("Menu : show_board(1), register_newtile(2), register_a_tile(3),pick_atile(4), show_tile(5)")
+            if a == 1:
+                show_regboard()
+            elif a == 2:
+                regist_newtile(player2, board)
+            elif a == 3:
+                regist_atile(player2)
+            elif a == 4:
+                emptytile(player2)
+            elif a == 5:
+                show_tile(player2)
+
 
 def tilegame():
     tile = make_tile()
     dist_tile(tile)
     turn_dice()
-    if first_turn == player1:
-        while jud_success != 2:
-            if jud_success == 1:
-                show_tile(player2)
-                arrange_tile(player2)
-                register(player2, tile, jud_success, board)
-            else:
-                show_tile(player1)
-                arrange_tile(player1)
-                register(player1, tile, jud_success, board)
-                show_tile(player2)
-                arrange_tile(player2)
-                register(player2, tile, jud_success, board)
-    else:
-        while jud_success != 2:
-            if jud_success == 1:
-                show_tile(player1)
-                arrange_tile(player1)
-                register(player1, tile, jud_success, board)
-            else:
-                show_tile(player2)
-                arrange_tile(player2)
-                register(player2, tile, jud_success, board)
-                show_tile(player1)
-                arrange_tile(player1)
-                register(player1, tile, jud_success, board)
     a = 0
-    while a != 6:
-        a = input("Menu : show_board(1), register_newtile(2), register_a_tile(3),pick_atile(4), show_tile(5), pass(6)")
-        if a == 1:
-            show_regboard()
-        elif a == 2:
-            regist_newtile(player1,board)
-        elif a == 3:
-            regist_atile(player1)
-        elif a == 4:
-            emptytile(player1)
-        elif a == 5:
-            show_tile(player1)
-
+    while a == 2 or jud_end() == 0:
+        if turn == False:
+            player1_turn()
+            player2_turn()
+            jud_end()
+            a += 1
+        else:
+            player2_turn()
+            player1_turn()
+            jud_end()
+            a += 1
 
 tilegame()
 
