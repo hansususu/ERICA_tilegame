@@ -320,19 +320,35 @@ def turn_dice():
         turn_dice()
 
 def tilegame():
-    turn_dice()
     tile = make_tile()
     dist_tile(tile)
-    show_tile(player1)
-    make_board()
-    reg = False
-    while reg == False:
-        arrange_tile(player1)
-        register(player1, tile, board)
-        for i in range(13):
-            if board[i] != [0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0]:
-                reg = True
-                break
+    turn_dice()
+    if first_turn == player1:
+        while jud_success != 2:
+            if jud_success == 1:
+                show_tile(player2)
+                arrange_tile(player2)
+                register(player2, tile, jud_success, board)
+            else:
+                show_tile(player1)
+                arrange_tile(player1)
+                register(player1, tile, jud_success, board)
+                show_tile(player2)
+                arrange_tile(player2)
+                register(player2, tile, jud_success, board)
+    else:
+        while jud_success != 2:
+            if jud_success == 1:
+                show_tile(player1)
+                arrange_tile(player1)
+                register(player1, tile, jud_success, board)
+            else:
+                show_tile(player2)
+                arrange_tile(player2)
+                register(player2, tile, jud_success, board)
+                show_tile(player1)
+                arrange_tile(player1)
+                register(player1, tile, jud_success, board)
     a = 0
     while a != 6:
         a = input("Menu : show_board(1), register_newtile(2), register_a_tile(3),pick_atile(4), show_tile(5), pass(6)")
