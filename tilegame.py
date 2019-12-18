@@ -1,6 +1,8 @@
 import random 
 player1 = []
 player2 = []
+board = [[0 for i in range(13)]for j in range(13)]
+jud_success = 0
 
 def make_tile():
     color = {"red","orange", "blue", "black"}
@@ -42,26 +44,19 @@ def more(message):
     else:
         return False
 
-def make_board():
-    global board
-    board = [[0 for i in range(13)]for j in range(13)]
-
-def register(who,tile) :
+def register(who,tile, jud_success, board) :
     if more("Do you want to register?(y/n) ") == True:
         global answer1
         answer1 = input("몇개의 묶음을 등록하시겠습니까?")
         while answer1.isdigit() == False:
             answer1 = input("몇개의 묶음을 등록하시겠습니까?")
         answer1 = int(answer1)
-        sum = 0
-        cpboard = board
-        realcard(who)
-        show_tile(who)
-        row = len(board)
-        col = len(board[0])       
-        a = []
         global cptile
         cptile = who
+        cpboard = board
+        sum = 0
+        realcard(who)     
+        a = []
         global jud_row
         jud_row = 0
         for i in range(row):
@@ -98,25 +93,29 @@ def register(who,tile) :
                     break
         for i in range(len(a)):
             sum += a[i]['number']
-        if judge == True:
-            if sum <= 30:
-                print("Sum is not over 30")
-                print("You get 1 tile.")
-                who = cptile
-                board = cpboard
-                emptytile(who)
-            elif jud == 1:
-                print("You entered an unaligned tiles.")
-                print("You get 1 tile.")
-                who = cptile
-                board = cpboard
-                emptytile(who)
-            else:
-                print("You success to register.")
-    else :
+        if sum < 30:
+            print("Sum is not over 30")
+            print("You get 1 tile.")
+            who = cptile
+            board = cpboard
+            emptytile(who)
+        elif sum < 30 and jud == 1:
+            print("Sum is not over 30 and you entered unaligned tiles.")
+            print("You get 1 tile.")
+            board = cpboard
+            who = cptile
+            emptytile(who)
+        elif jud == 1:
+            print("You entered an unaligned tiles.")
+            print("You get 1 tile.")
+            board = cpboard
+            who = cptile
+            emptytile(who)
+        elif sum >= 30 and jud == 0:
+            print("You success to register.")
+            jud_success += 1
+    else:
         print("You get 1 tile.")
-        who = cptile
-        board = cpboard
         emptytile(who)
 
 def realcard(who):
