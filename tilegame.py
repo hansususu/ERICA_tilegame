@@ -305,13 +305,18 @@ def turn_dice():
     dice2 - random.randrange(1,7)
     global first_turn
     global second_turn
+    print("player1's dice is", dice1)
+    print("player2's dice is", dice2)
     if dice1 > dice2:
         first_turn = player1
         second_turn = player2
+        print("player1 plays first!")
     elif dice1 < dice2:
         first_turn = player2
         second_turn = player1
+        print("player2 plays first!")
     else:
+        print("re_roll a dice!")
         turn_dice()
 
 def tilegame():
