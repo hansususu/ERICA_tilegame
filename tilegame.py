@@ -65,10 +65,10 @@ def register(who,tile, jud_success, board) :
         a = []
         global jud_row
         jud_row = 0
-        for i in range(row):
+        for i in range(13):
             original = []
             judge = []
-            for j in range(col):
+            for j in range(13):
                 if board[i][j] != 0:
                     a.append(board[i][j])
             if board[i] != [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0]:
@@ -307,7 +307,7 @@ def regist_atile(who):
 
 def turn_dice():
     dice1 = random.randrange(1,7)
-    dice2 - random.randrange(1,7)
+    dice2 = random.randrange(1,7)
     global turn
     turn = True
     print("Player1's dice is", dice1)
@@ -321,6 +321,16 @@ def turn_dice():
     else:
         print("Re-roll dice!")
         turn_dice()
+
+def jud_end():
+    if player1 == []:
+        print("Player1 is winner!")
+        return 1
+    elif player2 == []:
+        print("Player2 is winner!")
+        return 1
+    else:
+        return 0
 
 def player1_turn():
     if turn == True:
@@ -358,7 +368,7 @@ def player1_turn():
             elif a == 5:
                 show_tile(player1)
 
-def player2_turn:
+def player2_turn():
     if turn == False:
         if jud_success == 0:
             show_tile(player2)
@@ -399,18 +409,17 @@ def tilegame():
     tile = make_tile()
     dist_tile(tile)
     turn_dice()
-    a = 0
-    while a == 2 or jud_end() == 0:
+    for i in range(2):
         if turn == False:
             player1_turn()
             player2_turn()
-            jud_end()
-            a += 1
+            if jud_end() == 1:
+                break
         else:
-            player2_turn()
             player1_turn()
-            jud_end()
-            a += 1
+            player2_turn()
+            if jud_end() == 1:
+                break
 
 tilegame()
 
