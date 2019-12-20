@@ -323,12 +323,10 @@ def turn_dice():
         turn_dice()
 
 def jud_end():
-    if player1 == []:
-        print("Player1 is winner!")
+    if player1 == []
         return 1
     elif player2 == []:
-        print("Player2 is winner!")
-        return 1
+        return 2
     else:
         return 0
 
@@ -413,13 +411,20 @@ def tilegame():
         if turn == False:
             player1_turn()
             player2_turn()
-            if jud_end() == 1:
+            if jud_end() != 0:
                 break
         else:
             player1_turn()
             player2_turn()
-            if jud_end() == 1:
+            if jud_end() != 0:
                 break
+    if jud_end() == 1 or len(player1) > len(player2):
+        print("Player1 is Winner!")
+    elif jud_end() == 2 or len(player2) > len(player1):
+        print("Player2 is Winner!'")
+    else:
+        print("Draw!")
+
 
 tilegame()
 
