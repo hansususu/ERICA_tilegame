@@ -323,7 +323,7 @@ def turn_dice():
         turn_dice()
 
 def jud_end():
-    if player1 == []
+    if player1 == []:
         return 1
     elif player2 == []:
         return 2
