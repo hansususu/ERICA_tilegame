@@ -484,7 +484,7 @@ def tilegame():
     for i in range(5):
         if turn == False:
             player2_success = player2_turn(player1_success, player2_success)
-            player1_success = player1_Turn(player1_success, player2_success)
+            player1_success = player1_turn(player1_success, player2_success)
             if jud_end() != 0:
                 break
         else:
