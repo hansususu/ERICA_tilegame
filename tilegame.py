@@ -1,8 +1,16 @@
-import random 
+강예원 <yewon2789@gmail.com>
+	
+오후 12:37 (25분 전)
+	
+나에게
+
+import random
+from tkinter import *
+import tkinter.messagebox
+import sys
 player1 = []
 player2 = []
 board = [[0 for i in range(13)]for j in range(13)]
-jud_success = 0
 
 def make_tile():
     color = {"red","orange", "blue", "black"}
@@ -50,25 +58,25 @@ def more(message):
     else:
         return False
 
-def register(who,tile, jud_success, board) :
+def register(who,tile, board) :
+    cptile = who
+    cpboard = board
     if more("Do you want to register?(y/n) ") == True:
         global answer1
-        answer1 = input("몇개의 묶음을 등록하시겠습니까?")
+        answer1 = input("몇개의 묶음을 등록하시겠습니까? ")
         while answer1.isdigit() == False:
-            answer1 = input("몇개의 묶음을 등록하시겠습니까?")
+            answer1 = input("몇개의 묶음을 등록하시겠습니까? ")
         answer1 = int(answer1)
-        global cptile
-        cptile = who
-        cpboard = board
-        sum = 0
-        realcard(who)     
+        row: int = len(board)
+        col = len(board[0])
+        realcard(who)
         a = []
         global jud_row
         jud_row = 0
-        for i in range(13):
+        for i in range(row):
             original = []
             judge = []
-            for j in range(13):
+            for j in range(col):
                 if board[i][j] != 0:
                     a.append(board[i][j])
             if board[i] != [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0]:
@@ -97,39 +105,55 @@ def register(who,tile, jud_success, board) :
                 else:
                     jud = 1
                     break
-        for i in range(len(a)):
-            sum += a[i]['number']
-        if sum < 30:
-            print("Sum is not over 30")
-            print("You get 1 tile.")
-            who = cptile
-            board = cpboard
-            emptytile(who)
-        elif sum < 30 and jud == 1:
-            print("Sum is not over 30 and you entered unaligned tiles.")
-            print("You get 1 tile.")
-            board = cpboard
-            who = cptile
-            emptytile(who)
-        elif jud == 1:
-            print("You entered an unaligned tiles.")
-            print("You get 1 tile.")
-            board = cpboard
-            who = cptile
-            emptytile(who)
-        elif sum >= 30 and jud == 0:
-            print("You success to register.")
-            jud_success += 1
+
+        def Sum():
+            sum = 0
+            for i in range(len(a)):
+                sum += a[i]['number']
+            if sum < 30 and jud == 1:
+                print("Sum is not over 30 and you entered unaligned tiles.")
+                print("You get 1 tile.")
+                board = cpboard
+                who = cptile
+                emptytile(who)
+                print('\n')
+            elif sum < 30:
+                print("Sum is not over 30")
+                print("You get 1 tile.")
+                who = cptile
+                board = cpboard
+                emptytile(who)
+                print('\n')
+            elif jud == 1:
+                print("You entered an unaligned tiles.")
+                print("You get 1 tile.")
+                board = cpboard
+                who = cptile
+                emptytile(who)
+                print('\n')
+            elif sum >= 30 and jud == 0:
+                print("You success to register.")
+            else:
+                print("You get 1 tile.")
+                board = cpboard
+                who = cptile
+                emptytile(who)
+                print('\n')
+        Sum()
     else:
         print("You get 1 tile.")
+        board = cpboard
+        who = cptile
         emptytile(who)
+        print('\n')
+
 
 def realcard(who):
     for row in range(answer1):
         global answer2
-        answer2 = input("How many tiles do you want to enter?")
+        answer2 = input("How many tiles do you want to enter? ")
         while answer2.isdigit() == False:
-            answer2 = input("How many tiles do you want to enter?")
+            answer2 = input("How many tiles do you want to enter? ")
         answer2 = int(answer2)
         if answer2 >= 3:
             enter_tile(row,who)
@@ -142,8 +166,11 @@ def enter_tile(row,who):
     print("Please enter tiles!")
     row = 0
     for i in range(13):
+        global board
         if board[i] != [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]:
             row += 1
+
+    cptile = who
     for j in range(answer2):
         try:
             a, b = input().split()
@@ -159,13 +186,11 @@ def enter_tile(row,who):
                 print("Please re-enter the tile.")
                 who = cptile
                 enter_tile(i,who)
-                break
         except:
-            print("Tile input is no formatted.")
+            print("Tile input is not formatted.")
             print("Please re-enter the tile.")
             who = cptile
             enter_tile(i,who)
-            break
 
 def emptytile(who):
     if tile != []:
@@ -178,9 +203,9 @@ def emptytile(who):
 
 def arrange_tile(who):
     while 1:
-        answer = input("Do you want sort? (789/777/NO)")
+        answer = input("Do you want sort? (789/777/NO) ")
         while not (answer == '789' or answer == '777' or answer == 'NO'):
-            answer = input("Do you want sort? (789/777/NO)")
+            answer = input("Do you want sort? (789/777/NO) ")
         if answer == '777':
             who.sort(key=lambda x: x['number'])
             show_tile(who)
@@ -228,7 +253,7 @@ def regist_newtile(who,board):
                 jud_col1.append(board[bdrow][j])
         for j in range(col-1):
             if jud_col1[j]['number'] == jud_col1[j+1]['number']:
-                if jud_col1[j]['color'] != jud_col1[j+1]['colo']:
+                if jud_col1[j]['color'] != jud_col1[j+1]['color']:
                     jud_col = 0
                 else:
                     jud_col = 1
@@ -243,13 +268,14 @@ def regist_newtile(who,board):
                 jud_col = 1
                 break
         bdrow += 1
-    if jud_cold == 1:
-        print("You should enter unaligned tile.")
-        print("Please re-enter the tile")
+    if jud_col == 1:
+        print("You enter unaligned tile.")
+        print("Please re-enter the tile.")
         board = cpboard
         regist_newtile(who,board)
     else:
         print("You are success to register tiles!")
+        print('\n')
 
 def regist_atile(who):
     ans = input("Where do you want to register?")
@@ -295,136 +321,154 @@ def regist_atile(who):
                 jud_col = 1
                 break
     else:
-        print("This tile tis not yours.")
+        print("This tile is not yours.")
         print("Please re-enter the tile.")
+
     if jud_col == 1:
         print("You sould enter aligned tile.")
         print("Please re-enter a tile.")
         board[ans-1] = cpcol
         regist_atile(who)
+
     else:
         print("You success to register a tile!")
 
 def turn_dice():
-    dice1 = random.randrange(1,7)
-    dice2 = random.randrange(1,7)
-    global turn
-    turn = True
-    print("Player1's dice is", dice1)
-    print("Player2's dice is", dice2)
-    if dice1 > dice2:
-        turn = True
-        print("Player1 plays first!")
-    elif dice1 < dice2:
-        turn = False
-        print("Player2 plays first!")
-    else:
-        print("Re-roll dice!")
-        turn_dice()
+    global first_turn
+    global second_turn
+    roll = input("Press the enter to throw the dice.")
+    if roll == '':
+        dice1 = random.randrange(1, 7)
+        dice2 = random.randrange(1, 7)
+        print("player1's dice is", dice1)
+        print("player2's dice is", dice2)
+        if dice1 > dice2:
+            first_turn = player1
+            second_turn = player2
+            print("player1 plays first!")
+        elif dice1 < dice2:
+            first_turn = player2
+            second_turn = player1
+            print("player2 plays first!")
+        else:
+            print("re_roll a dice!")
+            turn_dice()
 
-def jud_end():
-    if player1 == []:
-        return 1
-    elif player2 == []:
-        return 2
+def start():
+    start = input("Press Enter to start the game.")
+    if start == '':
+        tilegame()
     else:
-        return 0
+        start()
 
-def player1_turn():
-    if turn == True:
-        if jud_success == 0:
-            show_tile(player1)
-            arrange_tile(player1)
-            register(player1, tile, jud_success, board)
-        elif jud_success == 1 or jud_success == 2:
-            a = input("Menu : show_board(1), register_newtile(2), register_a_tile(3),pick_atile(4), show_tile(5)")
-            if a == 1:
-                show_regboard()
-            elif a == 2:
-                regist_newtile(player1, board)
-            elif a == 3:
-                regist_atile(player1)
-            elif a == 4:
-                emptytile(player1)
-            elif a == 5:
-                show_tile(player1)
-    else:
-        if jud_success == 0 or jud_success == 1:
-            show_tile(player1)
-            arrange_tile(player1)
-            register(player1, tile, jud_success, board)
-        elif jud_success == 2:
-            a = input("Menu : show_board(1), register_newtile(2), register_a_tile(3),pick_atile(4), show_tile(5)")
-            if a == 1:
-                show_regboard()
-            elif a == 2:
-                regist_newtile(player1, board)
-            elif a == 3:
-                regist_atile(player1)
-            elif a == 4:
-                emptytile(player1)
-            elif a == 5:
-                show_tile(player1)
+def stockExit(self):
+    sys.exit(0)
 
-def player2_turn():
-    if turn == False:
-        if jud_success == 0:
-            show_tile(player2)
-            arrange_tile(player2)
-            register(player2, tile, jud_success, board)
-        elif jud_success == 1 or jud_success == 2:
-            a = input("Menu : show_board(1), register_newtile(2), register_a_tile(3),pick_atile(4), show_tile(5)")
-            if a == 1:
-                show_regboard()
-            elif a == 2:
-                regist_newtile(player2, board)
-            elif a == 3:
-                regist_atile(player2)
-            elif a == 4:
-                emptytile(player2)
-            elif a == 5:
-                show_tile(player2)
+def Msgbox():
+    tkinter.messagebox.showinfo("<카드 등록할 수 있는 조건>", "1. 등록하려는 카드들의 숫자가 같을 경우 그 카드들의 색깔은 서로 달라야한다.\n2. 등록하려는 카드들의 색깔이 같을 경우 그 카드들의 숫자는 서로 달라야한다.\n3. 등록하려는 카드의 개수는 3개 이상이여야 한다.\n4. 등록하려는 카드의 숫자들의 합은 30이 넘어야한다.")
+
+def end():
+    a = input("Do you want to play again?(y/n) ")
+    if a == 'y':
+        start()
+    elif a == 'n':
+        stockExit()
     else:
-        if jud_success == 0 or jud_success == 1:
-            show_tile(player2)
-            arrange_tile(player2)
-            register(player2, tile, jud_success, board)
-        elif jud_success == 2:
-            a = input("Menu : show_board(1), register_newtile(2), register_a_tile(3),pick_atile(4), show_tile(5)")
-            if a == 1:
-                show_regboard()
-            elif a == 2:
-                regist_newtile(player2, board)
-            elif a == 3:
-                regist_atile(player2)
-            elif a == 4:
-                emptytile(player2)
-            elif a == 5:
-                show_tile(player2)
+        end()
+
+def nextstage1():
+    print("\nIt's player1's turn.")
+    print("Put down your card.")
+    print("Menu : show_board(1), register_newtile(2), register_a_tile(3),pick_atile(4), show_tile(5), help(6), pass(7)")
+    a = input("Select menu: ")
+    if a == 1:
+        show_regboard()
+    elif a == 2:
+        regist_newtile(player1,board)
+    elif a == 3:
+        regist_atile(player1)
+    elif a == 4:
+        emptytile(player1)
+    elif a == 5:
+        show_tile(player1)
+    elif a == 6:
+        Msgbox()
+
+def nextstage2():
+    print("\nIt's player2's turn.")
+    print("Put down your card.")
+    print("Menu : show_board(1), register_newtile(2), register_a_tile(3),pick_atile(4), show_tile(5), help(6), pass(7)")
+    a = input("Select menu: ")
+    if a == 1:
+        show_regboard()
+    elif a == 2:
+        regist_newtile(player2, board)
+    elif a == 3:
+        regist_atile(player2)
+    elif a == 4:
+        emptytile(player2)
+    elif a == 5:
+        show_tile(player2)
+    elif a == 6:
+        Msgbox()
+
+def order1():
+    show_tile(player1)
+    arrange_tile(player1)
+    register(player1, tile, board)
+    enter = input("\nIt's player2's turn.(Press Enter!)")
+    if enter == '':
+        show_tile(player2)
+        arrange_tile(player2)
+        register(player2, tile, board)
+
+def order2():
+    show_tile(player2)
+    arrange_tile(player2)
+    register(player2, tile, board)
+    enter = input("\nIt's player1's turn.(Press Enter!)")
+    if enter == '':
+        show_tile(player1)
+        arrange_tile(player1)
+        register(player1, tile, board)
+
+def order():
+    if first_turn == player2:
+        while board[0][0] == 0:
+            enter = input("\nIt's player2's turn.(Press Enter!)")
+            if enter == '':
+                order2()
+        for i in range(5):
+            nextstage2()
+            nextstage1()
+    else:
+        while board[0][0] == 0:
+            enter = input("\nIt's player1's turn.(Press Enter!)")
+            if enter == '':
+                order1()
+        for i in range(5):
+            nextstage1()
+            nextstage2()
+    x = len(player1)
+    y = len(player2)
+    if x > y:
+        print("Player1 is win!!")
+    elif x < y:
+        print("Player2 is win!!")
+    else:
+        print("Draw!!")
 
 
 def tilegame():
     tile = make_tile()
     dist_tile(tile)
+    print("Decide who's going first.")
     turn_dice()
-    for i in range(2):
-        if turn == False:
-            player1_turn()
-            player2_turn()
-            if jud_end() != 0:
-                break
-        else:
-            player1_turn()
-            player2_turn()
-            if jud_end() != 0:
-                break
-    if jud_end() == 1 or len(player1) > len(player2):
-        print("Player1 is Winner!")
-    elif jud_end() == 2 or len(player2) > len(player1):
-        print("Player2 is Winner!'")
-    else:
-        print("Draw!")
+    order()
+    end()
 
 
-tilegame()
+start()
+
+	
 
