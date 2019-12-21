@@ -1,9 +1,3 @@
-강예원 <yewon2789@gmail.com>
-	
-오후 12:37 (25분 전)
-	
-나에게
-
 import random
 from tkinter import *
 import tkinter.messagebox
