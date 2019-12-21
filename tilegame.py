@@ -328,8 +328,8 @@ def regist_atile(who):
         print("You success to register a tile!")
 
 def turn_dice():
-    global first_turn
-    global second_turn
+    global turn
+    turn = True
     roll = input("Press the enter to throw the dice.")
     if roll == '':
         dice1 = random.randrange(1, 7)
@@ -337,12 +337,10 @@ def turn_dice():
         print("player1's dice is", dice1)
         print("player2's dice is", dice2)
         if dice1 > dice2:
-            first_turn = player1
-            second_turn = player2
+            turn = True
             print("player1 plays first!")
         elif dice1 < dice2:
-            first_turn = player2
-            second_turn = player1
+            turn = False
             print("player2 plays first!")
         else:
             print("re_roll a dice!")
@@ -370,10 +368,72 @@ def end():
     else:
         end()
 
+def player1_turn(player1_success, player2_success):
+    enter = input("\nIt's player2's turn.(Press Enter!)")
+    if enter == '':
+        if turn == True:
+            if player1_success == 0:
+                show_tile(player1)
+                arrange_tile(player1)
+                register(player1, tile, board)
+                if player2_sucess != 1:
+                    if board[0][0] != 0:
+                        player1_success += 1
+                else:
+                    if board[1][0] != 0:
+                        player1_success += 1
+            else:
+                nextstage1()
+        else:
+            if player1_success == 0:
+                show_tile(player1)
+                arrange_tile(player1)
+                register(player1, tile, board)
+                if player2_success == 1:
+                    if board[1][0] != 0:
+                        player1_success += 1
+                else:
+                    if board[0][0] != 0:
+                        player1_success += 1
+            else:
+                nextstage1()
+    return player1_success
+
+def player2_turn(player1_success, player2_success):
+    enter = input("\nIt's player2's turn.(Press Enter!)")
+    if enter == '':
+        if turn == False:
+            if player2_success == 0:
+                show_tile(player2)
+                arrange_tile(player2)
+                register(player2, tile, board)
+                if player1_success == 0:
+                    if board[0][0] != 0:
+                        player2_success += 1
+                else:
+                    if board[0][0] != 0:
+                        player2_success += 1
+            else:
+                nextstage2()
+        else:
+            if player2_success == 0:
+                show_tile(player2)
+                arrange_tile(player2)
+                register(player2, tile, board)
+                if player1_success == 1:
+                    if board[1][0] != 0:
+                        player2_success += 1
+                else:
+                    if board[0][0] != 0:
+                        player2_success += 1
+            else:
+                nextstage2()
+    return player2_success
+
 def nextstage1():
     print("\nIt's player1's turn.")
     print("Put down your card.")
-    print("Menu : show_board(1), register_newtile(2), register_a_tile(3),pick_atile(4), show_tile(5), help(6), pass(7)")
+    print("Menu : show_board(1), register_newtile(2), register_a_tile(3),pick_atile(4), show_tile(5), help(6)")
     a = input("Select menu: ")
     if a == 1:
         show_regboard()
@@ -391,7 +451,7 @@ def nextstage1():
 def nextstage2():
     print("\nIt's player2's turn.")
     print("Put down your card.")
-    print("Menu : show_board(1), register_newtile(2), register_a_tile(3),pick_atile(4), show_tile(5), help(6), pass(7)")
+    print("Menu : show_board(1), register_newtile(2), register_a_tile(3),pick_atile(4), show_tile(5), help(6)")
     a = input("Select menu: ")
     if a == 1:
         show_regboard()
@@ -406,59 +466,38 @@ def nextstage2():
     elif a == 6:
         Msgbox()
 
-def order1():
-    show_tile(player1)
-    arrange_tile(player1)
-    register(player1, tile, board)
-    enter = input("\nIt's player2's turn.(Press Enter!)")
-    if enter == '':
-        show_tile(player2)
-        arrange_tile(player2)
-        register(player2, tile, board)
-
-def order2():
-    show_tile(player2)
-    arrange_tile(player2)
-    register(player2, tile, board)
-    enter = input("\nIt's player1's turn.(Press Enter!)")
-    if enter == '':
-        show_tile(player1)
-        arrange_tile(player1)
-        register(player1, tile, board)
-
-def order():
-    if first_turn == player2:
-        while board[0][0] == 0:
-            enter = input("\nIt's player2's turn.(Press Enter!)")
-            if enter == '':
-                order2()
-        for i in range(5):
-            nextstage2()
-            nextstage1()
+def jud_end():
+    if player1 == []:
+        return 1
+    elif player2 == []:
+        return 2
     else:
-        while board[0][0] == 0:
-            enter = input("\nIt's player1's turn.(Press Enter!)")
-            if enter == '':
-                order1()
-        for i in range(5):
-            nextstage1()
-            nextstage2()
-    x = len(player1)
-    y = len(player2)
-    if x > y:
-        print("Player1 is win!!")
-    elif x < y:
-        print("Player2 is win!!")
-    else:
-        print("Draw!!")
-
+        return 0
 
 def tilegame():
     tile = make_tile()
     dist_tile(tile)
     print("Decide who's going first.")
     turn_dice()
-    order()
+    player1_success = 0
+    player2_success = 0
+    for i in range(5):
+        if turn == False:
+            player2_success = player2_turn(player1_success, player2_success)
+            player1_success = player1_Turn(player1_success, player2_success)
+            if jud_end() != 0:
+                break
+        else:
+            player1_success = player1_turn(player1_success, player2_success)
+            player2_success = player2_turn(player1_success, player2_success)
+            if jud_end() != 0:
+                break
+    if jud_end() == 1 or len(player1) < len(player2):
+        print("Player1 is winner!")
+    elif jud_end() == 2 or len(player2) < len(player1):
+        print("Player2 is winner!")
+    else:
+        print("Draw!")
     end()
 
 
