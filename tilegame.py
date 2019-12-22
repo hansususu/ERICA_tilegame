@@ -229,14 +229,15 @@ def regist_newtile(who,board):
     while ans.isdigit() == False:
         ans = input("몇개의 묶음을 등록하시겠습니까?")
     ans = int(ans)
-    cpboard = board
+    cpboard = copy.deepcopy(board)
+    cptile = copy.deepcopy(who)
     bdrow = 0
     jud_col = 0
     for i in range(13):
         if board[i] != [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0]:
             bdrow += 1
     for i in range(ans):
-        realcard(who)
+        realcard(who,cptile)
     for i in range(ans):
         jud_col1 = []
         col = 0
@@ -264,7 +265,8 @@ def regist_newtile(who,board):
     if jud_col == 1:
         print("You enter unaligned tile.")
         print("Please re-enter the tile.")
-        board = cpboard
+        for i in range(len(board)):
+            board[i] = cpboard[i]
         regist_newtile(who,board)
     else:
         print("You are success to register tiles!")
@@ -276,7 +278,7 @@ def regist_atile(who):
         ans = input("Where do you want to register?")
     ans = int(ans)
     col = 0
-    cpcol = board[ans-1]
+    cpcol = copy.deepcopy(board[ans-1])
     for i in range(13):
         if board[ans-1][i] != 0:
             col += 1
@@ -434,6 +436,8 @@ def nextstage1():
     print("Put down your card.")
     print("Menu : show_board(1), register_newtile(2), register_a_tile(3),pick_atile(4), show_tile(5), help(6)")
     a = input("Select menu: ")
+    while a.isdigit() == False:
+        a = input("Select menu: ")
     a = int(a)
     if a == 1:
         show_regboard()
@@ -453,6 +457,8 @@ def nextstage2():
     print("Put down your card.")
     print("Menu : show_board(1), register_newtile(2), register_a_tile(3),pick_atile(4), show_tile(5), help(6)")
     a = input("Select menu: ")
+    while a.isdigit() == False:
+        ans = input("Select menu: ")
     a = int(a)
     if a == 1:
         show_regboard()
