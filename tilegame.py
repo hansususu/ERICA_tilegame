@@ -1,4 +1,8 @@
 import random
+import copy
+import tkinter.messagebox
+from tkinter import *
+import sys
 player1 = []
 player2 = []
 board = [[0 for i in range(13)]for j in range(13)]
@@ -50,8 +54,8 @@ def more(message):
         return False
 
 def register(who,tile, board) :
-    cptile = who
-    cpboard = board
+    cptile = copy.deepcopy(who)
+    cpboard = copy.deepcopy(board)
     if more("Do you want to register?(y/n) ") == True:
         global answer1
         answer1 = input("몇개의 묶음을 등록하시겠습니까? ")
@@ -60,7 +64,7 @@ def register(who,tile, board) :
         answer1 = int(answer1)
         row: int = len(board)
         col = len(board[0])
-        realcard(who)
+        realcard(who,cptile)
         a = []
         global jud_row
         jud_row = 0
@@ -77,7 +81,7 @@ def register(who,tile, board) :
             jud_board = []
             col = 0
             for j in range(13):
-                if (board[jud_row-1][j] != 0):
+                if (board[i][j] != 0):
                     col += 1
                     jud_board.append(board[jud_row-1][j])
             for j in range(col-1):
@@ -96,50 +100,50 @@ def register(who,tile, board) :
                 else:
                     jud = 1
                     break
-
-        def Sum():
-            sum = 0
-            for i in range(len(a)):
-                sum += a[i]['number']
-            if sum < 30 and jud == 1:
-                print("Sum is not over 30 and you entered unaligned tiles.")
-                print("You get 1 tile.")
-                board = cpboard
-                who = cptile
-                emptytile(who)
-                print('\n')
-            elif sum < 30:
-                print("Sum is not over 30")
-                print("You get 1 tile.")
-                who = cptile
-                board = cpboard
-                emptytile(who)
-                print('\n')
-            elif jud == 1:
-                print("You entered an unaligned tiles.")
-                print("You get 1 tile.")
-                board = cpboard
-                who = cptile
-                emptytile(who)
-                print('\n')
-            elif sum >= 30 and jud == 0:
-                print("You success to register.")
-            else:
-                print("You get 1 tile.")
-                board = cpboard
-                who = cptile
-                emptytile(who)
-                print('\n')
-        Sum()
+        sum = 0
+        for i in range(len(a)):
+            sum += a[i]['number']
+        if sum < 30 and jud == 1:
+            print("Sum is not over 30 and you entered unaligned tiles.")
+            print("You get 1 tile.")
+            for i in range(len(board)):
+                board[i] = cpboard[i]
+            who = cptile
+            emptytile(who)
+            print('\n')
+        elif sum < 30:
+            print("Sum is not over 30")
+            print("You get 1 tile.")
+            for i in range(len(board)):
+                board[i] = cpboard[i]
+            who = cptile
+            emptytile(who)
+            print('\n')
+        elif jud == 1:
+            print("You entered an unaligned tiles.")
+            print("You get 1 tile.")
+            for i in range(len(board)):
+                board[i] = cpboard[i]
+            who = cptile
+            emptytile(who)
+            print('\n')
+        elif sum >= 30 and jud == 0:
+            print("You success to register.")
+        else:
+            print("You get 1 tile.")
+            for i in range(len(board)):
+                board[i] = cpboard[i]
+            who = cptile
+            emptytile(who)
+            print('\n')
     else:
         print("You get 1 tile.")
-        board = cpboard
         who = cptile
         emptytile(who)
         print('\n')
 
 
-def realcard(who):
+def realcard(who,cptile):
     for row in range(answer1):
         global answer2
         answer2 = input("How many tiles do you want to enter? ")
@@ -147,21 +151,19 @@ def realcard(who):
             answer2 = input("How many tiles do you want to enter? ")
         answer2 = int(answer2)
         if answer2 >= 3:
-            enter_tile(row,who)
+            enter_tile(row,who,cptile)
         else:
             print("You should register more than 3 tiles.")
             print("Please re-enter.")
-            realcard(who)
+            realcard(who,cptile)
 
-def enter_tile(row,who):
+def enter_tile(row,who,cptile):
     print("Please enter tiles!")
     row = 0
     for i in range(13):
         global board
         if board[i] != [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]:
             row += 1
-
-    cptile = who
     for j in range(answer2):
         try:
             a, b = input().split()
@@ -176,12 +178,12 @@ def enter_tile(row,who):
                 print("This tile is not yours")
                 print("Please re-enter the tile.")
                 who = cptile
-                enter_tile(i,who)
+                enter_tile(i,who,cptile)
         except:
             print("Tile input is not formatted.")
             print("Please re-enter the tile.")
             who = cptile
-            enter_tile(i,who)
+            enter_tile(i,who,cptile)
 
 def emptytile(who):
     if tile != []:
