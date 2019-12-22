@@ -1,7 +1,4 @@
 import random
-from tkinter import *
-import tkinter.messagebox
-import sys
 player1 = []
 player2 = []
 board = [[0 for i in range(13)]for j in range(13)]
@@ -369,14 +366,14 @@ def end():
         end()
 
 def player1_turn(player1_success, player2_success):
-    enter = input("\nIt's player2's turn.(Press Enter!)")
+    enter = input("\nIt's player1's turn.(Press Enter!)")
     if enter == '':
         if turn == True:
             if player1_success == 0:
                 show_tile(player1)
                 arrange_tile(player1)
                 register(player1, tile, board)
-                if player2_sucess != 1:
+                if player2_success != 1:
                     if board[0][0] != 0:
                         player1_success += 1
                 else:
@@ -435,6 +432,7 @@ def nextstage1():
     print("Put down your card.")
     print("Menu : show_board(1), register_newtile(2), register_a_tile(3),pick_atile(4), show_tile(5), help(6)")
     a = input("Select menu: ")
+    a = int(a)
     if a == 1:
         show_regboard()
     elif a == 2:
@@ -453,6 +451,7 @@ def nextstage2():
     print("Put down your card.")
     print("Menu : show_board(1), register_newtile(2), register_a_tile(3),pick_atile(4), show_tile(5), help(6)")
     a = input("Select menu: ")
+    a = int(a)
     if a == 1:
         show_regboard()
     elif a == 2:
