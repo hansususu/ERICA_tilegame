@@ -195,6 +195,11 @@ def emptytile(who):
         print("There are no tile.")
 
 def arrange_tile(who):
+    answer = input("타일 등록조건을 보시겠습니까?(y/n) ")
+    if answer == 'y':
+        Msgbox()
+    else:
+        pass
     while 1:
         answer = input("Do you want sort? (789/777/NO) ")
         while not (answer == '789' or answer == '777' or answer == 'NO'):
@@ -434,7 +439,7 @@ def player2_turn(player1_success, player2_success):
 def nextstage1():
     print("\nIt's player1's turn.")
     print("Put down your card.")
-    print("Menu : show_board(1), register_newtile(2), register_a_tile(3),pick_atile(4), show_tile(5), help(6)")
+    print("Menu : show_board(1), register_newtile(2), register_a_tile(3),pick_atile(4), show_tile(5)")
     a = input("Select menu: ")
     while a.isdigit() == False:
         a = input("Select menu: ")
@@ -449,13 +454,11 @@ def nextstage1():
         emptytile(player1)
     elif a == 5:
         show_tile(player1)
-    elif a == 6:
-        Msgbox()
 
 def nextstage2():
     print("\nIt's player2's turn.")
     print("Put down your card.")
-    print("Menu : show_board(1), register_newtile(2), register_a_tile(3),pick_atile(4), show_tile(5), help(6)")
+    print("Menu : show_board(1), register_newtile(2), register_a_tile(3),pick_atile(4), show_tile(5)")
     a = input("Select menu: ")
     while a.isdigit() == False:
         ans = input("Select menu: ")
@@ -470,8 +473,6 @@ def nextstage2():
         emptytile(player2)
     elif a == 5:
         show_tile(player2)
-    elif a == 6:
-        Msgbox()
 
 def jud_end():
     if player1 == []:
